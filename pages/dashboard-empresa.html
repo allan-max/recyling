@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Reciclagem</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
+</head>
+<body class="page-container">
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Dashboard - Sistema de Reciclagem</h1>
+                <p class="dashboard-user">Bem-vindo, <span id="user-email"></span></p>
+            </div>
+            <button class="btn btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-pedidos">0</div>
+                <div class="stat-label">Total de Pedidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pedidos-pendentes">0</div>
+                <div class="stat-label">Pedidos Pendentes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pedidos-coletados">0</div>
+                <div class="stat-label">Pedidos Coletados</div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="content-header">
+                <h2 class="content-title">Pedidos de Coleta</h2>
+                <button class="btn btn-primary" onclick="adicionarPedidoTeste()">
+                    <i class="fas fa-plus"></i> Adicionar Pedido Teste
+                </button>
+            </div>
+            <div class="content-body">
+                <div id="pedidos-lista">
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Nenhum pedido encontrado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/pedidos.js"></script>
+    <script>
+        // Verificar se está logado como empresa
+        if (!isLoggedIn() || getCurrentUserType() !== 'empresa') {
+            window.location.href = 'login-empresa.html';
+        }
+
+        // Mostrar email do usuário
+        document.getElementById('user-email').textContent = getCurrentUser().email;
+
+        // Carregar pedidos ao inicializar
+        carregarPedidos();
+        atualizarEstatisticas();
+
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                logoutUser();
+                window.location.href = '../index.html';
+            }
+        }
+
+        function adicionarPedidoTeste() {
+            const tipos = ['Papel', 'Plástico', 'Metal', 'Vidro', 'Eletrônicos'];
+            const enderecos = [
+                'Rua das Flores, 123 - Centro',
+                'Av. Principal, 456 - Jardim',
+                'Rua Verde, 789 - Vila Nova',
+                'Alameda Sustentável, 321 - Eco Bairro'
+            ];
+            
+            const pedido = {
+                id: Date.now(),
+                clienteEmail: 'cliente.teste@email.com',
+                cliente: 'Cliente Teste ' + Math.floor(Math.random() * 100),
+                tipoMaterial: tipos[Math.floor(Math.random() * tipos.length)],
+                descricao: 'Material para reciclagem - teste',
+                endereco: enderecos[Math.floor(Math.random() * enderecos.length)],
+                data: new Date().toLocaleDateString('pt-BR'),
+                status: 'Pendente',
+                peso: (Math.random() * 50 + 5).toFixed(1) + ' kg'
+            };
+            
+            adicionarPedido(pedido);
+            carregarPedidos();
+            atualizarEstatisticas();
+        }
+
+        function alterarStatus(id, novoStatus) {
+            const pedidos = getPedidos();
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.status = novoStatus;
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                carregarPedidos();
+                atualizarEstatisticas();
+            }
+        }
+    </script>
+</body>
+</html>

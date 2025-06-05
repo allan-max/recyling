@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cliente - Sistema de Reciclagem</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
+</head>
+<body class="page-container">
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Dashboard Cliente</h1>
+                <p class="dashboard-user">Bem-vindo, <span id="user-email"></span></p>
+            </div>
+            <button class="btn btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="meus-pedidos">0</div>
+                <div class="stat-label">Meus Pedidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pedidos-pendentes">0</div>
+                <div class="stat-label">Pendentes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pedidos-coletados">0</div>
+                <div class="stat-label">Coletados</div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="content-header">
+                <h2 class="content-title">Meus Pedidos de Coleta</h2>
+                <button class="btn btn-primary" onclick="novoPedido()">
+                    <i class="fas fa-plus"></i> Novo Pedido
+                </button>
+            </div>
+            <div class="content-body">
+                <div id="pedidos-lista">
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Nenhum pedido encontrado</p>
+                        <button class="btn btn-primary" onclick="novoPedido()">Criar primeiro pedido</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para novo pedido -->
+    <div id="novoPedidoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeNovoPedidoModal()">&times;</span>
+            <div class="modal-header">
+                <h3>Novo Pedido de Coleta</h3>
+                <p>Preencha os dados do material para coleta</p>
+            </div>
+            <form id="novoPedidoForm">
+                <div class="form-group">
+                    <label for="tipoMaterial">Tipo de Material *</label>
+                    <select id="tipoMaterial" name="tipoMaterial" required>
+                        <option value="">Selecione o tipo</option>
+                        <option value="Papel">Papel</option>
+                        <option value="Plástico">Plástico</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Vidro">Vidro</option>
+                        <option value="Eletrônicos">Eletrônicos</option>
+                        <option value="Orgânico">Orgânico</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição *</label>
+                    <textarea id="descricao" name="descricao" placeholder="Descreva o material a ser coletado" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço para Coleta *</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Rua, número, bairro" required>
+                </div>
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais (opcional)"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Solicitar Coleta
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../scripts/auth.js"></script>
+    <script src="../scripts/pedidos.js"></script>
+    <script>
+        // Verificar se está logado como cliente
+        if (!isLoggedIn() || getCurrentUserType() !== 'cliente') {
+            window.location.href = 'login-cliente.html';
+        }
+
+        // Mostrar email do usuário
+        document.getElementById('user-email').textContent = getCurrentUser().email;
+
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                logoutUser();
+                window.location.href = '../index.html';
+            }
+        }
+
+        function novoPedido() {
+            document.getElementById('novoPedidoModal').style.display = 'block';
+        }
+
+        function closeNovoPedidoModal() {
+            document.getElementById('novoPedidoModal').style.display = 'none';
+            document.getElementById('novoPedidoForm').reset();
+        }
+
+        function carregarMeusPedidos() {
+            const userEmail = getCurrentUser().email;
+            const todosPedidos = getPedidos();
+            const meusPedidos = todosPedidos.filter(p => p.clienteEmail === userEmail);
+            
+            const container = document.getElementById('pedidos-lista');
+            
+            if (meusPedidos.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Nenhum pedido encontrado</p>
+                        <button class="btn btn-primary" onclick="novoPedido()">Criar primeiro pedido</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = meusPedidos.map(pedido => `
+                <div class="pedido-item">
+                    <div class="pedido-info">
+                        <h4>Pedido #${pedido.id}</h4>
+                        <p><strong>Material:</strong> ${pedido.tipoMaterial}</p>
+                        <p><strong>Descrição:</strong> ${pedido.descricao}</p>
+                        <p><strong>Endereço:</strong> ${pedido.endereco}</p>
+                        <p><strong>Data:</strong> ${pedido.data}</p>
+                    </div>
+                    <div class="pedido-status">
+                        <span class="badge badge-${getStatusClass(pedido.status)}">${pedido.status}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Atualizar estatísticas
+            document.getElementById('meus-pedidos').textContent = meusPedidos.length;
+            document.getElementById('pedidos-pendentes').textContent = meusPedidos.filter(p => p.status === 'Pendente').length;
+            document.getElementById('pedidos-coletados').textContent = meusPedidos.filter(p => p.status === 'Coletado').length;
+        }
+
+        function getStatusClass(status) {
+            const classes = {
+                'Pendente': 'secondary',
+                'Aceito': 'primary',
+                'Coletado': 'success',
+                'Finalizado': 'danger'
+            };
+            return classes[status] || 'secondary';
+        }
+
+        // Event listener para o formulário de novo pedido
+        document.getElementById('novoPedidoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            const user = getCurrentUser();
+            
+            const pedido = {
+                id: Date.now(),
+                clienteEmail: user.email,
+                cliente: user.name,
+                tipoMaterial: data.tipoMaterial,
+                descricao: data.descricao,
+                endereco: data.endereco,
+                observacoes: data.observacoes || '',
+                data: new Date().toLocaleDateString('pt-BR'),
+                status: 'Pendente'
+            };
+            
+            adicionarPedido(pedido);
+            closeNovoPedidoModal();
+            carregarMeusPedidos();
+            alert('Pedido criado com sucesso!');
+        });
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('novoPedidoModal');
+            if (event.target == modal) {
+                closeNovoPedidoModal();
+            }
+        }
+
+        // Carregar pedidos ao inicializar
+        carregarMeusPedidos();
+    </script>
+</body>
+</html>

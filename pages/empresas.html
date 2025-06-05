@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresas de Reciclagem - Sistema de Reciclagem</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <a href="dashboard-cliente.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Voltar ao dashboard
+        </a>
+
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h1>Empresas de Reciclagem</h1>
+                <p>Encontre empresas para coletar seus materiais recicláveis</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Pesquisar por nome ou tipo de material...">
+        </div>
+
+        <div id="empresas-container">
+            <!-- Empresas serão carregadas aqui -->
+        </div>
+    </div>
+
+    <script src="../scripts/auth.js"></script>
+    <script>
+        // Verificar se está logado
+        if (!isLoggedIn() || getCurrentUserType() !== 'cliente') {
+            window.location.href = 'login-cliente.html';
+        }
+
+        const empresas = [
+            {
+                id: "1",
+                nome: "EcoRecicla LTDA",
+                endereco: "Rua Verde, 123 - Centro, São Paulo",
+                telefone: "(11) 99999-8888",
+                email: "contato@ecorecicla.com",
+                materiais: ["Papel e Papelão", "Plástico", "Metal"],
+                avaliacao: 4.8
+            },
+            {
+                id: "2",
+                nome: "Verde Reciclagem",
+                endereco: "Av. Ambiental, 456 - Jardins, São Paulo",
+                telefone: "(11) 98765-4321",
+                email: "contato@verdereciclagem.com",
+                materiais: ["Vidro", "Eletrônicos", "Plástico"],
+                avaliacao: 4.5
+            },
+            {
+                id: "3",
+                nome: "Recicla Tudo",
+                endereco: "Rua das Árvores, 789 - Pinheiros, São Paulo",
+                telefone: "(11) 91234-5678",
+                email: "contato@reciclartudo.com",
+                materiais: ["Papel e Papelão", "Óleo de Cozinha", "Baterias"],
+                avaliacao: 4.2
+            },
+            {
+                id: "4",
+                nome: "Eco Sustentável",
+                endereco: "Av. Paulista, 1000 - Bela Vista, São Paulo",
+                telefone: "(11) 97777-6666",
+                email: "contato@ecosustentavel.com",
+                materiais: ["Metal", "Vidro", "Eletrônicos"],
+                avaliacao: 4.7
+            },
+            {
+                id: "5",
+                nome: "Recicle Já",
+                endereco: "Rua Reciclável, 222 - Vila Mariana, São Paulo",
+                telefone: "(11) 95555-4444",
+                email: "contato@recicleja.com",
+                materiais: ["Plástico", "Papel e Papelão", "Metal"],
+                avaliacao: 4.3
+            }
+        ];
+
+        let filteredEmpresas = [...empresas];
+
+        function loadEmpresas() {
+            const container = document.getElementById('empresas-container');
+            
+            if (filteredEmpresas.length === 0) {
+                container.innerHTML = `
+                    <div class="pedido-card">
+                        <div style="text-align: center; padding: 3rem;">
+                            <i class="fas fa-building" style="font-size: 4rem; color: #9ca3af; margin-bottom: 1rem;"></i>
+                            <h3 style="color: #374151; margin-bottom: 0.5rem;">Nenhuma empresa encontrada</h3>
+                            <p style="color: #6b7280; margin-bottom: 1.5rem;">Não encontramos empresas que correspondam à sua pesquisa.</p>
+                            <button class="btn btn-primary" onclick="clearSearch()">Limpar Pesquisa</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredEmpresas.map(empresa => `
+                <div class="pedido-card">
+                    <div class="pedido-header">
+                        <div class="pedido-info">
+                            <h3>
+                                <i class="fas fa-building" style="color: #059669;"></i>
+                                ${empresa.nome}
+                            </h3>
+                            <p>Avaliação: ${empresa.avaliacao}/5.0</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="solicitarColeta('${empresa.id}')">
+                            Solicitar Coleta
+                        </button>
+                    </div>
+                    <div class="pedido-content">
+                        <div class="pedido-details">
+                            <div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ${empresa.endereco}
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone"></i>
+                                    ${empresa.telefone}
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-envelope"></i>
+                                    ${empresa.email}
+                                </div>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Materiais aceitos:</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                    ${empresa.materiais.map(material => `
+                                        <span class="badge badge-secondary">${material}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterEmpresas(searchTerm) {
+            filteredEmpresas = empresas.filter(empresa =>
+                empresa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                empresa.materiais.some(material => 
+                    material.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+            );
+            loadEmpresas();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filteredEmpresas = [...empresas];
+            loadEmpresas();
+        }
+
+        function solicitarColeta(empresaId) {
+            alert('Redirecionando para página de novo pedido...');
+            window.location.href = 'novo-pedido.html';
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            filterEmpresas(e.target.value);
+        });
+
+        // Carregar empresas ao inicializar
+        loadEmpresas();
+    </script>
+</body>
+</html>

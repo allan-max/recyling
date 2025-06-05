@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reciclagem</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="icons8-reciclagem-48.png" type="image/x-icon">
+</head>
+<body>
+    <div class="main-container">
+        <div class="hero-section">
+            <div class="recycle-icon">
+                <i class="fas fa-recycle"></i>
+            </div>
+            <h1 class="main-title">Sistema de Reciclagem</h1>
+            <p class="main-subtitle">
+                Conectando empresas de reciclagem com clientes para um futuro mais sustentável
+            </p>
+        </div>
+
+        <div class="cards-section">
+            <div class="card empresa-card">
+                <div class="card-icon green-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h2 class="card-title">Empresa de Reciclagem</h2>
+                <p class="card-description">
+                    Cadastre sua empresa e ofereça serviços de coleta
+                </p>
+                <div class="card-buttons">
+                    <button class="btn btn-dark" onclick="window.location.href='pages/cadastro-empresa.html'">
+                        Cadastrar Empresa
+                    </button>
+                    <button class="btn btn-light" onclick="window.location.href='pages/login-empresa.html'">
+                        Login Empresa
+                    </button>
+                </div>
+            </div>
+
+            <div class="card cliente-card">
+                <div class="card-icon blue-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="card-title">Cliente</h2>
+                <p class="card-description">
+                    Solicite serviços de coleta de materiais recicláveis
+                </p>
+                <div class="card-buttons">
+                    <button class="btn btn-gray" onclick="window.location.href='pages/cadastro-cliente.html'">
+                        Cadastrar Cliente
+                    </button>
+                    <button class="btn btn-light" onclick="window.location.href='pages/login-cliente.html'">
+                        Login Cliente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
