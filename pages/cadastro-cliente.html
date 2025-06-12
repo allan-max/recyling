@@ -10,52 +10,60 @@
 </head>
 <body class="page-container">
     <div class="form-container">
-        <div class="form-header">
-            <h1><i class="fas fa-user" style="color: #2563eb; margin-right: 10px;"></i>Cadastro de Cliente</h1>
+        <div class="back-link">
+            <a href="../index.html"><i class="fas fa-arrow-left"></i> Voltar ao início</a>
+        </div>
+
+        <div class="form-header centered">
+            <div class="form-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h1>Cadastro do Cliente</h1>
             <p>Preencha seus dados para solicitar serviços de coleta</p>
         </div>
 
         <div id="alert-container"></div>
 
         <form id="cadastroForm">
-            <div class="form-group">
-                <label style="font-size: 1rem; font-weight: 600;">Tipo de Cliente *</label>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" id="fisica" name="tipoCliente" value="fisica" checked>
-                        <label for="fisica">Pessoa Física</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" id="empresa" name="tipoCliente" value="empresa">
-                        <label for="empresa">Empresa</label>
+            <div class="form-section">
+                <div class="form-group">
+                    <label>Tipo de Cliente *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="fisica" name="tipoCliente" value="fisica" checked>
+                            <label for="fisica">Pessoa Física</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="empresa" name="tipoCliente" value="empresa">
+                            <label for="empresa">Empresa</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
                     <label for="nome" id="nomeLabel">Nome Completo *</label>
                     <input type="text" id="nome" name="nome" placeholder="João Silva" required>
                 </div>
+
                 <div class="form-group">
                     <label for="documento" id="documentoLabel">CPF *</label>
                     <input type="text" id="documento" name="documento" placeholder="000.000.000-00" required>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" placeholder="cliente@exemplo.com" required>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="senha">Senha *</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="cliente@exemplo.com" required>
                 </div>
-                <div class="form-group">
-                    <label for="confirmarSenha">Confirmar Senha *</label>
-                    <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirme sua senha" required>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="senha">Senha *</label>
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarSenha">Confirmar Senha *</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirme sua senha" required>
+                    </div>
                 </div>
             </div>
 
@@ -97,17 +105,13 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-secondary" style="width: 100%;">
+            <button type="submit" class="btn btn-cadastrar">
                 Cadastrar Cliente
             </button>
         </form>
 
         <div class="form-links">
             <p>Já tem uma conta? <a href="login-cliente.html">Faça login aqui</a></p>
-        </div>
-
-        <div class="link-back">
-            <a href="../index.html">← Voltar ao início</a>
         </div>
     </div>
 

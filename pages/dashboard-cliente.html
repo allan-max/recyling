@@ -12,45 +12,21 @@
     <div class="dashboard-container">
         <div class="dashboard-header">
             <div>
-                <h1 class="dashboard-title">Dashboard Cliente</h1>
-                <p class="dashboard-user">Bem-vindo, <span id="user-email"></span></p>
+                <h1 class="dashboard-title">Meus Pedidos</h1>
+                <p class="dashboard-subtitle">Acompanhe o status dos seus pedidos de coleta</p>
             </div>
-            <button class="btn btn-logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Sair
-            </button>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="meus-pedidos">0</div>
-                <div class="stat-label">Meus Pedidos</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pedidos-pendentes">0</div>
-                <div class="stat-label">Pendentes</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pedidos-coletados">0</div>
-                <div class="stat-label">Coletados</div>
-            </div>
-        </div>
-
-        <div class="content-card">
-            <div class="content-header">
-                <h2 class="content-title">Meus Pedidos de Coleta</h2>
-                <button class="btn btn-primary" onclick="novoPedido()">
+            <div class="header-actions">
+                <button class="btn btn-primary" id="novoPedidoBtn">
                     <i class="fas fa-plus"></i> Novo Pedido
                 </button>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
             </div>
-            <div class="content-body">
-                <div id="pedidos-lista">
-                    <div class="empty-state">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Nenhum pedido encontrado</p>
-                        <button class="btn btn-primary" onclick="novoPedido()">Criar primeiro pedido</button>
-                    </div>
-                </div>
-            </div>
+        </div>
+
+        <div id="pedidos-container">
+            <!-- Os pedidos serão carregados aqui -->
         </div>
     </div>
 
@@ -103,31 +79,15 @@
             window.location.href = 'login-cliente.html';
         }
 
-        // Mostrar email do usuário
-        document.getElementById('user-email').textContent = getCurrentUser().email;
-
-        function logout() {
-            if (confirm('Deseja realmente sair?')) {
-                logoutUser();
-                window.location.href = '../index.html';
-            }
-        }
-
-        function novoPedido() {
-            document.getElementById('novoPedidoModal').style.display = 'block';
-        }
-
-        function closeNovoPedidoModal() {
-            document.getElementById('novoPedidoModal').style.display = 'none';
-            document.getElementById('novoPedidoForm').reset();
-        }
+        // Carregar pedidos ao inicializar
+        document.addEventListener('DOMContentLoaded', carregarMeusPedidos);
 
         function carregarMeusPedidos() {
             const userEmail = getCurrentUser().email;
             const todosPedidos = getPedidos();
             const meusPedidos = todosPedidos.filter(p => p.clienteEmail === userEmail);
             
-            const container = document.getElementById('pedidos-lista');
+            const container = document.getElementById('pedidos-container');
             
             if (meusPedidos.length === 0) {
                 container.innerHTML = `
@@ -140,38 +100,73 @@
                 return;
             }
 
-            container.innerHTML = meusPedidos.map(pedido => `
-                <div class="pedido-item">
-                    <div class="pedido-info">
-                        <h4>Pedido #${pedido.id}</h4>
-                        <p><strong>Material:</strong> ${pedido.tipoMaterial}</p>
-                        <p><strong>Descrição:</strong> ${pedido.descricao}</p>
-                        <p><strong>Endereço:</strong> ${pedido.endereco}</p>
-                        <p><strong>Data:</strong> ${pedido.data}</p>
+            container.innerHTML = meusPedidos.map((pedido, index) => `
+                <div class="pedido-card">
+                    <div class="pedido-header">
+                        <div class="pedido-title">
+                            <i class="fas fa-recycle"></i> Pedido #${index + 1}
+                        </div>
+                        <div class="pedido-status ${getStatusClass(pedido.status)}">
+                            ${pedido.status}
+                        </div>
                     </div>
-                    <div class="pedido-status">
-                        <span class="badge badge-${getStatusClass(pedido.status)}">${pedido.status}</span>
+                    <div class="pedido-content">
+                        <div class="pedido-location">
+                            <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
+                        </div>
+                        <div class="pedido-details">
+                            <div class="detail-item">
+                                <strong>Material:</strong> ${pedido.tipoMaterial}
+                            </div>
+                            <div class="detail-item">
+                                <strong>Descrição:</strong> ${pedido.descricao}
+                            </div>
+                        </div>
+                        ${pedido.empresa ? `
+                            <div class="pedido-empresa">
+                                <strong>Empresa:</strong> ${pedido.empresa}
+                            </div>
+                        ` : ''}
+                        ${pedido.previsao ? `
+                            <div class="pedido-date">
+                                <i class="far fa-calendar"></i> Previsão: ${pedido.previsao}
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
             `).join('');
-
-            // Atualizar estatísticas
-            document.getElementById('meus-pedidos').textContent = meusPedidos.length;
-            document.getElementById('pedidos-pendentes').textContent = meusPedidos.filter(p => p.status === 'Pendente').length;
-            document.getElementById('pedidos-coletados').textContent = meusPedidos.filter(p => p.status === 'Coletado').length;
         }
 
         function getStatusClass(status) {
             const classes = {
-                'Pendente': 'secondary',
-                'Aceito': 'primary',
-                'Coletado': 'success',
-                'Finalizado': 'danger'
+                'Aguardando': 'status-waiting',
+                'Pendente': 'status-pending',
+                'Aceito': 'status-accepted',
+                'Coletado': 'status-collected',
+                'Finalizado': 'status-finished'
             };
-            return classes[status] || 'secondary';
+            return classes[status] || 'status-pending';
         }
 
-        // Event listener para o formulário de novo pedido
+        function novoPedido() {
+            document.getElementById('novoPedidoModal').style.display = 'block';
+        }
+
+        function closeNovoPedidoModal() {
+            document.getElementById('novoPedidoModal').style.display = 'none';
+            document.getElementById('novoPedidoForm').reset();
+        }
+
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                logoutUser();
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('novoPedidoBtn').addEventListener('click', novoPedido);
+
         document.getElementById('novoPedidoForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -188,7 +183,7 @@
                 endereco: data.endereco,
                 observacoes: data.observacoes || '',
                 data: new Date().toLocaleDateString('pt-BR'),
-                status: 'Pendente'
+                status: 'Aguardando'
             };
             
             adicionarPedido(pedido);
@@ -204,9 +199,6 @@
                 closeNovoPedidoModal();
             }
         }
-
-        // Carregar pedidos ao inicializar
-        carregarMeusPedidos();
     </script>
 </body>
 </html>

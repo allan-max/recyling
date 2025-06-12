@@ -3,53 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema de Reciclagem</title>
+    <title>Dashboard Empresa - Sistema de Reciclagem</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
 </head>
 <body class="page-container">
     <div class="dashboard-container">
-        <div class="dashboard-header">
+        <div class="dashboard-header-simple">
             <div>
-                <h1 class="dashboard-title">Dashboard - Sistema de Reciclagem</h1>
-                <p class="dashboard-user">Bem-vindo, <span id="user-email"></span></p>
+                <h1 class="dashboard-title">Dashboard da Empresa</h1>
+                <p class="dashboard-subtitle">Gerencie seus pedidos de coleta</p>
             </div>
             <button class="btn btn-logout" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> Sair
             </button>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="total-pedidos">0</div>
-                <div class="stat-label">Total de Pedidos</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pedidos-pendentes">0</div>
-                <div class="stat-label">Pedidos Pendentes</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pedidos-coletados">0</div>
-                <div class="stat-label">Pedidos Coletados</div>
-            </div>
-        </div>
-
-        <div class="content-card">
-            <div class="content-header">
-                <h2 class="content-title">Pedidos de Coleta</h2>
-                <button class="btn btn-primary" onclick="adicionarPedidoTeste()">
-                    <i class="fas fa-plus"></i> Adicionar Pedido Teste
-                </button>
-            </div>
-            <div class="content-body">
-                <div id="pedidos-lista">
-                    <div class="empty-state">
-                        <i class="fas fa-clipboard-list"></i>
-                        <p>Nenhum pedido encontrado</p>
-                    </div>
-                </div>
-            </div>
+        <div id="pedidos-container">
+            <!-- Os pedidos serão carregados aqui -->
         </div>
     </div>
 
@@ -61,54 +33,144 @@
             window.location.href = 'login-empresa.html';
         }
 
-        // Mostrar email do usuário
-        document.getElementById('user-email').textContent = getCurrentUser().email;
-
         // Carregar pedidos ao inicializar
-        carregarPedidos();
-        atualizarEstatisticas();
+        document.addEventListener('DOMContentLoaded', carregarPedidosEmpresa);
 
-        function logout() {
-            if (confirm('Deseja realmente sair?')) {
-                logoutUser();
-                window.location.href = '../index.html';
+        function carregarPedidosEmpresa() {
+            const todosPedidos = getPedidos();
+            
+            const container = document.getElementById('pedidos-container');
+            
+            if (todosPedidos.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Nenhum pedido encontrado</p>
+                        <button class="btn btn-primary" onclick="adicionarPedidoTeste()">Adicionar pedido teste</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = todosPedidos.map((pedido, index) => `
+                <div class="pedido-card-empresa">
+                    <div class="pedido-header-empresa">
+                        <div class="pedido-title-empresa">
+                            <i class="fas fa-recycle"></i> Pedido #${index + 1}
+                        </div>
+                        <div class="pedido-status-empresa ${getStatusClass(pedido.status)}">
+                            ${pedido.status}
+                        </div>
+                    </div>
+                    <div class="pedido-content-empresa">
+                        <div class="pedido-client-empresa">
+                            Cliente: ${pedido.cliente}
+                        </div>
+                        <div class="pedido-location-empresa">
+                            <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
+                        </div>
+                        <div class="pedido-material-empresa">
+                            <strong>Material:</strong> ${pedido.tipoMaterial}
+                        </div>
+                        <div class="pedido-description-empresa">
+                            <strong>Descrição:</strong> ${pedido.descricao}
+                        </div>
+                        ${pedido.status === 'Aceito' ? `
+                            <div class="pedido-dates-empresa">
+                                <div class="date-item">
+                                    <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                                </div>
+                                <div class="date-item">
+                                    <i class="far fa-clock"></i> Previsão: ${pedido.previsao || '19/01/2024 às 14:00'}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="pedido-actions-empresa">
+                        ${pedido.status === 'Aguardando' || pedido.status === 'Pendente' ? `
+                            <button class="btn-aceitar-pedido" onclick="aceitarPedido(${pedido.id})">
+                                Aceitar Pedido
+                            </button>
+                        ` : ''}
+                        ${pedido.status === 'Aceito' ? `
+                            <button class="btn-marcar-coletado" onclick="marcarComoColetado(${pedido.id})">
+                                Marcar como Coletado
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusClass(status) {
+            const classes = {
+                'Aguardando': 'status-pendente-empresa',
+                'Pendente': 'status-pendente-empresa',
+                'Aceito': 'status-aceito-empresa',
+                'Coletado': 'status-coletado-empresa',
+                'Finalizado': 'status-finalizado-empresa'
+            };
+            return classes[status] || 'status-pendente-empresa';
+        }
+
+        function aceitarPedido(id) {
+            const pedidos = getPedidos();
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.status = 'Aceito';
+                pedido.empresa = getCurrentUser().name;
+                pedido.previsao = '19/01/2024 às 14:00';
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                carregarPedidosEmpresa();
+            }
+        }
+
+        function marcarComoColetado(id) {
+            const pedidos = getPedidos();
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.status = 'Coletado';
+                pedido.dataColeta = new Date().toLocaleDateString('pt-BR');
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                carregarPedidosEmpresa();
             }
         }
 
         function adicionarPedidoTeste() {
-            const tipos = ['Papel', 'Plástico', 'Metal', 'Vidro', 'Eletrônicos'];
+            const tipos = ['Papel e Papelão', 'Eletrônicos', 'Plástico', 'Metal', 'Vidro'];
+            const clientes = ['João Silva', 'Maria Santos', 'Ana Costa', 'Pedro Oliveira'];
             const enderecos = [
-                'Rua das Flores, 123 - Centro',
-                'Av. Principal, 456 - Jardim',
-                'Rua Verde, 789 - Vila Nova',
-                'Alameda Sustentável, 321 - Eco Bairro'
+                'Rua das Flores, 123 - Centro, São Paulo',
+                'Av. Paulista, 456 - Bela Vista, São Paulo',
+                'Rua Verde, 789 - Vila Madalena, São Paulo',
+                'Alameda Sustentável, 321 - Jardins, São Paulo'
+            ];
+            const descricoes = [
+                'Aproximadamente 50kg de papelão de mudança',
+                'Computador antigo, monitor e impressora',
+                'Garrafas PET e embalagens plásticas',
+                'Latas de alumínio e ferro'
             ];
             
             const pedido = {
                 id: Date.now(),
                 clienteEmail: 'cliente.teste@email.com',
-                cliente: 'Cliente Teste ' + Math.floor(Math.random() * 100),
+                cliente: clientes[Math.floor(Math.random() * clientes.length)],
                 tipoMaterial: tipos[Math.floor(Math.random() * tipos.length)],
-                descricao: 'Material para reciclagem - teste',
+                descricao: descricoes[Math.floor(Math.random() * descricoes.length)],
                 endereco: enderecos[Math.floor(Math.random() * enderecos.length)],
-                data: new Date().toLocaleDateString('pt-BR'),
-                status: 'Pendente',
-                peso: (Math.random() * 50 + 5).toFixed(1) + ' kg'
+                data: '14/01/2024',
+                status: 'Pendente'
             };
             
             adicionarPedido(pedido);
-            carregarPedidos();
-            atualizarEstatisticas();
+            carregarPedidosEmpresa();
         }
 
-        function alterarStatus(id, novoStatus) {
-            const pedidos = getPedidos();
-            const pedido = pedidos.find(p => p.id === id);
-            if (pedido) {
-                pedido.status = novoStatus;
-                localStorage.setItem('pedidos', JSON.stringify(pedidos));
-                carregarPedidos();
-                atualizarEstatisticas();
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                logoutUser();
+                window.location.href = '../index.html';
             }
         }
     </script>

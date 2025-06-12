@@ -46,10 +46,10 @@ function carregarPedidos() {
                     <tr>
                         <td>#${pedido.id}</td>
                         <td>${pedido.cliente}</td>
-                        <td>${pedido.tipo}</td>
+                        <td>${pedido.tipoMaterial}</td>
                         <td>${pedido.endereco}</td>
                         <td>${pedido.data}</td>
-                        <td>${pedido.peso}</td>
+                        <td>${pedido.peso || "N/A"}</td>
                         <td>
                             <span class="status-badge status-${pedido.status.toLowerCase()}">
                                 ${pedido.status}
@@ -57,7 +57,7 @@ function carregarPedidos() {
                         </td>
                         <td>
                             ${
-                              pedido.status === "Pendente"
+                              pedido.status === "Pendente" || pedido.status === "Aguardando"
                                 ? `<button class="btn" style="background: #059669; color: white; padding: 6px 12px; font-size: 0.8rem;" onclick="alterarStatus(${pedido.id}, 'Coletado')">
                                     <i class="fas fa-check"></i> Coletar
                                 </button>`
@@ -84,12 +84,20 @@ function atualizarEstatisticas() {
   const pedidos = getPedidos()
 
   const total = pedidos.length
-  const pendentes = pedidos.filter((p) => p.status === "Pendente").length
+  const pendentes = pedidos.filter((p) => p.status === "Pendente" || p.status === "Aguardando").length
   const coletados = pedidos.filter((p) => p.status === "Coletado").length
 
-  document.getElementById("total-pedidos").textContent = total
-  document.getElementById("pedidos-pendentes").textContent = pendentes
-  document.getElementById("pedidos-coletados").textContent = coletados
+  if (document.getElementById("total-pedidos")) {
+    document.getElementById("total-pedidos").textContent = total
+  }
+
+  if (document.getElementById("pedidos-pendentes")) {
+    document.getElementById("pedidos-pendentes").textContent = pendentes
+  }
+
+  if (document.getElementById("pedidos-coletados")) {
+    document.getElementById("pedidos-coletados").textContent = coletados
+  }
 }
 
 function removerPedido(id) {
@@ -97,8 +105,19 @@ function removerPedido(id) {
     const pedidos = getPedidos()
     const novosPedidos = pedidos.filter((p) => p.id !== id)
     localStorage.setItem("pedidos", JSON.stringify(novosPedidos))
-    carregarPedidos()
-    atualizarEstatisticas()
+
+    // Verificar se a função existe antes de chamar
+    if (window.carregarPedidosEmpresa && typeof window.carregarPedidosEmpresa === "function") {
+      window.carregarPedidosEmpresa()
+    } else if (window.carregarMeusPedidos && typeof window.carregarMeusPedidos === "function") {
+      window.carregarMeusPedidos()
+    } else if (window.carregarPedidos && typeof window.carregarPedidos === "function") {
+      window.carregarPedidos()
+    }
+
+    if (window.atualizarEstatisticas && typeof window.atualizarEstatisticas === "function") {
+      window.atualizarEstatisticas()
+    }
   }
 }
 
@@ -110,29 +129,36 @@ function inicializarDadosExemplo() {
       {
         id: 1,
         cliente: "Maria Silva",
-        tipo: "Papel",
-        endereco: "Rua das Flores, 123 - Centro",
+        clienteEmail: "maria@exemplo.com",
+        tipoMaterial: "Papel",
+        descricao: "Aproximadamente 50kg de papelão de mudança",
+        endereco: "Rua das Flores, 123 - Centro, São Paulo",
         data: "05/06/2025",
-        status: "Pendente",
-        peso: "15.5 kg",
+        status: "Aguardando",
       },
       {
         id: 2,
         cliente: "João Santos",
-        tipo: "Plástico",
-        endereco: "Av. Principal, 456 - Jardim",
+        clienteEmail: "joao@exemplo.com",
+        tipoMaterial: "Eletrônicos",
+        descricao: "Computador antigo, monitor e impressora",
+        endereco: "Av. Paulista, 456 - Bela Vista, São Paulo",
         data: "04/06/2025",
-        status: "Coletado",
-        peso: "8.2 kg",
+        status: "Aceito",
+        empresa: "EcoRecicla LTDA",
+        previsao: "19/01/2024 às 14:00",
       },
       {
         id: 3,
         cliente: "Ana Costa",
-        tipo: "Metal",
-        endereco: "Rua Verde, 789 - Vila Nova",
+        clienteEmail: "ana@exemplo.com",
+        tipoMaterial: "Plástico",
+        descricao: "Garrafas PET e embalagens plásticas",
+        endereco: "Rua Verde, 789 - Vila Madalena, São Paulo",
         data: "03/06/2025",
-        status: "Pendente",
-        peso: "22.1 kg",
+        status: "Coletado",
+        empresa: "Verde Reciclagem",
+        dataColeta: "11/01/2024",
       },
     ]
 
