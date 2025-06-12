@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Cliente - Sistema de Reciclagem</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/dashboard-cliente.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
 </head>
@@ -114,72 +115,75 @@
                 return;
             }
 
-            container.innerHTML = meusPedidos.map((pedido, index) => `
-                <div class="pedido-card-cliente-novo">
-                    <div class="pedido-header-cliente-novo">
-                        <div class="pedido-title-cliente-novo">
-                            <i class="fas fa-box"></i> Pedido #${index + 1}
-                        </div>
-                        <div class="pedido-status-cliente-novo ${getStatusClass(pedido.status)}">
-                            ${getStatusText(pedido.status)}
-                        </div>
-                    </div>
-                    <div class="pedido-content-cliente-novo">
-                        <div class="pedido-subtitle-cliente-novo">
-                            ${getStatusMessage(pedido)}
-                        </div>
-                        <div class="pedido-location-cliente-novo">
-                            <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
-                        </div>
-                        <div class="pedido-details-cliente-novo">
-                            <div class="detail-item-cliente-novo">
-                                <strong>Material:</strong> ${pedido.tipoMaterial}
-                            </div>
-                            <div class="detail-item-cliente-novo">
-                                <strong>Descrição:</strong> ${pedido.descricao}
-                            </div>
-                            ${pedido.empresa ? `
-                                <div class="detail-item-cliente-novo">
-                                    <strong>Empresa:</strong> ${pedido.empresa}
+            container.innerHTML = meusPedidos.map((pedido, index) => {
+                return `
+                    <div class="pedido-card-cliente-finalizado">
+                        <div class="pedido-header-cliente-finalizado">
+                            <div class="pedido-titulo-cliente-finalizado">
+                                <div class="pedido-numero-finalizado">
+                                    <i class="fas fa-box"></i> Pedido #${index + 1}
                                 </div>
-                            ` : ''}
+                                <div class="pedido-status-texto">
+                                    ${getStatusMessage(pedido)}
+                                </div>
+                            </div>
+                            <div class="pedido-badge-cliente-finalizado ${getStatusBadgeClass(pedido.status)}">
+                                ${getStatusText(pedido.status)}
+                            </div>
                         </div>
-                        ${(pedido.status === 'Aceito' || pedido.status === 'Coletado' || pedido.status === 'Finalizado') ? `
-                            <div class="pedido-dates-cliente-novo">
-                                <div class="date-item-cliente-novo">
-                                    <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                        <div class="pedido-content-cliente-finalizado">
+                            <div class="pedido-info-cliente-finalizado">
+                                <div class="pedido-endereco-cliente-finalizado">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${pedido.endereco}</span>
+                                </div>
+                                <div class="pedido-material-cliente-finalizado">
+                                    <strong>Material:</strong> ${pedido.tipoMaterial}
+                                </div>
+                                <div class="pedido-descricao-cliente-finalizado">
+                                    <strong>Descrição:</strong> ${pedido.descricao}
+                                </div>
+                                ${pedido.empresa ? `
+                                    <div class="pedido-empresa-cliente-finalizado">
+                                        <strong>Empresa:</strong> ${pedido.empresa}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="pedido-datas-cliente-finalizado">
+                                <div class="data-item-cliente-finalizado">
+                                    <i class="far fa-calendar"></i> Abertura: ${pedido.data || '09/01/2024'}
                                 </div>
                                 ${pedido.previsao ? `
-                                    <div class="date-item-cliente-novo">
+                                    <div class="data-item-cliente-finalizado">
                                         <i class="far fa-clock"></i> Previsão: ${pedido.previsao}
                                     </div>
                                 ` : ''}
                                 ${pedido.dataColeta ? `
-                                    <div class="date-item-cliente-novo coletado">
-                                        <i class="far fa-calendar"></i> Coletado: ${pedido.dataColeta}
+                                    <div class="data-item-cliente-finalizado data-item-cliente-coletado">
+                                        <i class="fas fa-check-circle"></i> Coletado: ${pedido.dataColeta}
                                     </div>
                                 ` : ''}
                                 ${pedido.dataFinalizacao ? `
-                                    <div class="date-item-cliente-novo finalizado">
-                                        <i class="far fa-calendar"></i> Finalizado: ${pedido.dataFinalizacao}
+                                    <div class="data-item-cliente-finalizado data-item-cliente-finalizado-red">
+                                        <i class="fas fa-times-circle"></i> Finalizado: ${pedido.dataFinalizacao}
                                     </div>
                                 ` : ''}
                             </div>
-                        ` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function getStatusClass(status) {
+        function getStatusBadgeClass(status) {
             const classes = {
-                'Aguardando': 'status-aguardando-cliente-novo',
-                'Pendente': 'status-aguardando-cliente-novo',
-                'Aceito': 'status-aceito-cliente-novo',
-                'Coletado': 'status-coletado-cliente-novo',
-                'Finalizado': 'status-finalizado-cliente-novo'
+                'Aguardando': 'status-aguardando',
+                'Pendente': 'status-aguardando',
+                'Aceito': 'status-aceito',
+                'Coletado': 'status-coletado',
+                'Finalizado': 'status-finalizado'
             };
-            return classes[status] || 'status-aguardando-cliente-novo';
+            return classes[status] || 'status-aguardando';
         }
 
         function getStatusText(status) {
@@ -203,7 +207,7 @@
                 case 'Coletado':
                     return `Material coletado em ${pedido.dataColeta || 'data não informada'}`;
                 case 'Finalizado':
-                    return `Serviço finalizado em ${pedido.dataFinalizacao || pedido.dataColeta || 'data não informada'}`;
+                    return `Serviço finalizado em ${pedido.dataFinalizacao || '11/01/2024'}`;
                 default:
                     return 'Aguardando empresa aceitar o pedido';
             }

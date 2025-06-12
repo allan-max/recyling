@@ -1,0 +1,275 @@
+/* Estilos para o novo card de pedido finalizado */
+.pedido-card-finalizado {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.pedido-header-finalizado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pedido-titulo-finalizado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pedido-titulo-finalizado i {
+  color: #111827;
+}
+
+.pedido-badge-finalizado {
+  background-color: #ef4444;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.pedido-cliente-finalizado {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.pedido-content-finalizado {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.pedido-info-finalizado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pedido-endereco-finalizado {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.pedido-endereco-finalizado i {
+  color: #6b7280;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.pedido-material-finalizado {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.pedido-material-finalizado strong {
+  color: #111827;
+}
+
+.pedido-descricao-finalizado {
+  font-size: 0.95rem;
+}
+
+.pedido-descricao-finalizado strong {
+  color: #111827;
+}
+
+.pedido-datas-finalizado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.data-item-finalizado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.data-item-finalizado i {
+  color: #6b7280;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.data-item-coletado {
+  color: #059669;
+}
+
+.data-item-coletado i {
+  color: #059669;
+}
+
+.data-item-finalizado-red {
+  color: #ef4444;
+}
+
+.data-item-finalizado-red i {
+  color: #ef4444;
+}
+
+/* Estilos para o novo card de pedido coletado */
+.pedido-card-coletado {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.pedido-header-coletado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pedido-titulo-coletado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pedido-titulo-coletado i {
+  color: #111827;
+}
+
+.pedido-badge-coletado {
+  background-color: #f3f4f6;
+  color: #111827;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.pedido-cliente-coletado {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.pedido-content-coletado {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.pedido-info-coletado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pedido-endereco-coletado {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.pedido-endereco-coletado i {
+  color: #6b7280;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.pedido-material-coletado {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.pedido-material-coletado strong {
+  color: #111827;
+}
+
+.pedido-descricao-coletado {
+  font-size: 0.95rem;
+}
+
+.pedido-descricao-coletado strong {
+  color: #111827;
+}
+
+.pedido-datas-coletado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.data-item-coletado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.data-item-coletado i {
+  color: #6b7280;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.data-item-coletado-green {
+  color: #059669;
+}
+
+.data-item-coletado-green i {
+  color: #059669;
+}
+
+.btn-finalizar-servico {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.btn-finalizar-servico:hover {
+  background-color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .pedido-content-finalizado,
+  .pedido-content-coletado {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pedido-datas-finalizado,
+  .pedido-datas-coletado {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+  }
+}

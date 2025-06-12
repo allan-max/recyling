@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Empresa - Sistema de Reciclagem</title>
     <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/dashboard-empresa.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
 </head>
@@ -90,54 +91,153 @@
                 return;
             }
 
-            container.innerHTML = todosPedidos.map((pedido, index) => `
-                <div class="pedido-card-empresa">
-                    <div class="pedido-header-empresa">
-                        <div class="pedido-title-empresa">
-                            <i class="fas fa-recycle"></i> Pedido #${index + 1}
-                        </div>
-                        <div class="pedido-status-empresa ${getStatusClass(pedido.status)}">
-                            ${pedido.status}
-                        </div>
-                    </div>
-                    <div class="pedido-content-empresa">
-                        <div class="pedido-client-empresa">
-                            Cliente: ${pedido.cliente}
-                        </div>
-                        <div class="pedido-location-empresa">
-                            <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
-                        </div>
-                        <div class="pedido-material-empresa">
-                            <strong>Material:</strong> ${pedido.tipoMaterial}
-                        </div>
-                        <div class="pedido-description-empresa">
-                            <strong>Descrição:</strong> ${pedido.descricao}
-                        </div>
-                        ${pedido.status === 'Aceito' ? `
-                            <div class="pedido-dates-empresa">
-                                <div class="date-item">
-                                    <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+            container.innerHTML = todosPedidos.map((pedido, index) => {
+                // Pedido com status Finalizado - NOVO LAYOUT
+                if (pedido.status === 'Finalizado') {
+                    return `
+                        <div class="pedido-card-finalizado">
+                            <div class="pedido-header-finalizado">
+                                <div class="pedido-titulo-finalizado">
+                                    <i class="fas fa-box"></i> Pedido #${index + 1}
                                 </div>
-                                <div class="date-item">
-                                    <i class="far fa-clock"></i> Previsão: ${pedido.previsao || '19/01/2024 às 14:00'}
+                                <div class="pedido-badge-finalizado">
+                                    Finalizado
                                 </div>
                             </div>
-                        ` : ''}
-                    </div>
-                    <div class="pedido-actions-empresa">
-                        ${pedido.status === 'Aguardando' || pedido.status === 'Pendente' ? `
-                            <button class="btn-aceitar-pedido" onclick="abrirModalAceitar(${pedido.id})">
-                                Aceitar Pedido
+                            <div class="pedido-cliente-finalizado">
+                                Cliente: ${pedido.cliente}
+                            </div>
+                            <div class="pedido-content-finalizado">
+                                <div class="pedido-info-finalizado">
+                                    <div class="pedido-endereco-finalizado">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>${pedido.endereco}</span>
+                                    </div>
+                                    <div class="pedido-material-finalizado">
+                                        <strong>Material:</strong> ${pedido.tipoMaterial}
+                                    </div>
+                                    <div class="pedido-descricao-finalizado">
+                                        <strong>Descrição:</strong> ${pedido.descricao}
+                                    </div>
+                                </div>
+                                <div class="pedido-datas-finalizado">
+                                    <div class="data-item-finalizado">
+                                        <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                                    </div>
+                                    <div class="data-item-finalizado">
+                                        <i class="far fa-clock"></i> Previsão: ${pedido.previsao || '19/01/2024 às 14:00'}
+                                    </div>
+                                    <div class="data-item-finalizado data-item-coletado">
+                                        <i class="fas fa-check-circle"></i> Coletado em: ${pedido.dataColeta || '11/06/2025'}
+                                    </div>
+                                    <div class="data-item-finalizado data-item-finalizado-red">
+                                        <i class="fas fa-times-circle"></i> Finalizado em: ${pedido.dataFinalizacao || '11/06/2025'}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Pedido com status Coletado - NOVO LAYOUT
+                else if (pedido.status === 'Coletado') {
+                    return `
+                        <div class="pedido-card-coletado">
+                            <div class="pedido-header-coletado">
+                                <div class="pedido-titulo-coletado">
+                                    <i class="fas fa-box"></i> Pedido #${index + 1}
+                                </div>
+                                <div class="pedido-badge-coletado">
+                                    Coletado
+                                </div>
+                            </div>
+                            <div class="pedido-cliente-coletado">
+                                Cliente: ${pedido.cliente}
+                            </div>
+                            <div class="pedido-content-coletado">
+                                <div class="pedido-info-coletado">
+                                    <div class="pedido-endereco-coletado">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>${pedido.endereco}</span>
+                                    </div>
+                                    <div class="pedido-material-coletado">
+                                        <strong>Material:</strong> ${pedido.tipoMaterial}
+                                    </div>
+                                    <div class="pedido-descricao-coletado">
+                                        <strong>Descrição:</strong> ${pedido.descricao}
+                                    </div>
+                                </div>
+                                <div class="pedido-datas-coletado">
+                                    <div class="data-item-coletado">
+                                        <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                                    </div>
+                                    <div class="data-item-coletado">
+                                        <i class="far fa-clock"></i> Previsão: ${pedido.previsao || '19/01/2024 às 14:00'}
+                                    </div>
+                                    <div class="data-item-coletado data-item-coletado-green">
+                                        <i class="fas fa-check-circle"></i> Coletado em: ${pedido.dataColeta || '11/06/2025'}
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-finalizar-servico" onclick="finalizarPedido(${pedido.id})">
+                                Finalizar Serviço
                             </button>
-                        ` : ''}
-                        ${pedido.status === 'Aceito' ? `
-                            <button class="btn-marcar-coletado" onclick="marcarComoColetado(${pedido.id})">
-                                Marcar como Coletado
-                            </button>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
+                        </div>
+                    `;
+                }
+                
+                // Pedidos com outros status (Pendente, Aguardando, Aceito)
+                else {
+                    return `
+                        <div class="pedido-card-empresa">
+                            <div class="pedido-header-empresa">
+                                <div class="pedido-title-empresa">
+                                    <i class="fas fa-recycle"></i> Pedido #${index + 1}
+                                </div>
+                                <div class="pedido-status-empresa ${getStatusClass(pedido.status)}">
+                                    ${pedido.status}
+                                </div>
+                            </div>
+                            <div class="pedido-content-empresa">
+                                <div class="pedido-client-empresa">
+                                    Cliente: ${pedido.cliente}
+                                </div>
+                                <div class="pedido-location-empresa">
+                                    <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
+                                </div>
+                                <div class="pedido-material-empresa">
+                                    <strong>Material:</strong> ${pedido.tipoMaterial}
+                                </div>
+                                <div class="pedido-description-empresa">
+                                    <strong>Descrição:</strong> ${pedido.descricao}
+                                </div>
+                                ${pedido.status === 'Aceito' ? `
+                                    <div class="pedido-dates-empresa">
+                                        <div class="date-item">
+                                            <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                                        </div>
+                                        <div class="date-item">
+                                            <i class="far fa-clock"></i> Previsão: ${pedido.previsao || '19/01/2024 às 14:00'}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="pedido-actions-empresa">
+                                ${pedido.status === 'Aguardando' || pedido.status === 'Pendente' ? `
+                                    <button class="btn-aceitar-pedido" onclick="abrirModalAceitar(${pedido.id})">
+                                        Aceitar Pedido
+                                    </button>
+                                ` : ''}
+                                ${pedido.status === 'Aceito' ? `
+                                    <button class="btn-marcar-coletado" onclick="marcarComoColetado(${pedido.id})">
+                                        Marcar como Coletado
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
         }
 
         function getStatusClass(status) {
@@ -198,6 +298,17 @@
             if (pedido) {
                 pedido.status = 'Coletado';
                 pedido.dataColeta = new Date().toLocaleDateString('pt-BR');
+                localStorage.setItem('pedidos', JSON.stringify(pedidos));
+                carregarPedidosEmpresa();
+            }
+        }
+
+        function finalizarPedido(id) {
+            const pedidos = getPedidos();
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.status = 'Finalizado';
+                pedido.dataFinalizacao = new Date().toLocaleDateString('pt-BR');
                 localStorage.setItem('pedidos', JSON.stringify(pedidos));
                 carregarPedidosEmpresa();
             }

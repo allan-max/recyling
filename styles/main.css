@@ -92,6 +92,20 @@ body {
   margin: 0 auto 25px;
 }
 
+/* Adicionando estilos para as imagens dos cards */
+.card-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.card-icon-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
 .green-icon {
   background-color: #dcfce7;
 }
@@ -673,6 +687,11 @@ body {
   font-size: 0.95rem;
 }
 
+.pedido-location i {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
 .pedido-details {
   margin-bottom: 15px;
 }
@@ -689,6 +708,11 @@ body {
   color: #6b7280;
   font-size: 0.9rem;
   margin-top: 15px;
+}
+
+.pedido-date i {
+  color: #9ca3af;
+  font-size: 0.9rem;
 }
 
 .pedido-actions {
@@ -1093,12 +1117,12 @@ body {
 }
 
 .pedido-title-cliente-novo {
-  font-weight: 700;
-  color: #1f2937;
-  font-size: 1.5rem;
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .pedido-title-cliente-novo i {
@@ -1136,79 +1160,80 @@ body {
 
 .pedido-content-cliente-novo {
   padding: 0 24px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
 }
 
-.pedido-subtitle-cliente-novo {
-  color: #6b7280;
-  font-size: 1rem;
-  margin-bottom: 16px;
+.pedido-info-column {
+  flex: 1;
+}
+
+.pedido-info-item {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #374151;
   line-height: 1.5;
 }
 
-.pedido-location-cliente-novo {
+.pedido-info-item i {
+  color: #6b7280;
+  margin-right: 6px;
+}
+
+.pedido-dates-column {
+  min-width: 250px;
+}
+
+.pedido-date-item {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #374151;
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #6b7280;
-  font-size: 1rem;
-  margin-bottom: 20px;
 }
 
-.pedido-location-cliente-novo i {
-  color: #9ca3af;
-  font-size: 0.9rem;
-}
-
-.pedido-details-cliente-novo {
-  margin-bottom: 20px;
-}
-
-.detail-item-cliente-novo {
-  font-size: 1rem;
-  color: #1f2937;
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.detail-item-cliente-novo strong {
-  font-weight: 700;
-}
-
-.pedido-dates-cliente-novo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.date-item-cliente-novo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #6b7280;
-  font-size: 1rem;
-}
-
-.date-item-cliente-novo i {
-  color: #9ca3af;
-  font-size: 0.9rem;
+.pedido-date-item i {
   width: 16px;
+  text-align: center;
 }
 
-.date-item-cliente-novo.coletado {
+.pedido-date-item.success {
   color: #059669;
 }
 
-.date-item-cliente-novo.coletado i {
+.pedido-date-item.success i {
   color: #059669;
 }
 
-.date-item-cliente-novo.finalizado {
-  color: #dc2626;
+.pedido-date-item.danger {
+  color: #ef4444;
 }
 
-.date-item-cliente-novo.finalizado i {
-  color: #dc2626;
+.pedido-date-item.danger i {
+  color: #ef4444;
+}
+
+.pedido-actions-novo {
+  padding: 15px 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.btn-finalizar-servico {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-finalizar-servico:hover {
+  background-color: #dc2626;
 }
 
 /* Cards dos pedidos do cliente - DESIGN ANTIGO (mantido para compatibilidade) */
@@ -2193,17 +2218,6 @@ body {
 
 .forgot-password {
   color: #2563eb !important;
-}
-
-.error-message {
-  background-color: #fef2f2;
-  color: #dc2626;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-  text-align: center;
-  border: 1px solid #fecaca;
 }
 
 .login-icon-key {

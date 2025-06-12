@@ -1,0 +1,169 @@
+/* Estilos para o novo card de pedido finalizado no dashboard do cliente */
+.pedido-card-cliente-finalizado {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.pedido-header-cliente-finalizado {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.pedido-titulo-cliente-finalizado {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pedido-numero-finalizado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pedido-numero-finalizado i {
+  color: #111827;
+}
+
+.pedido-status-texto {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.pedido-badge-cliente-finalizado {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+/* Classes para diferentes status */
+.status-aguardando {
+  background-color: #f59e0b;
+}
+
+.status-aceito {
+  background-color: #1f2937;
+}
+
+.status-coletado {
+  background-color: #059669;
+}
+
+.status-finalizado {
+  background-color: #ef4444;
+}
+
+.pedido-content-cliente-finalizado {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.pedido-info-cliente-finalizado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pedido-endereco-cliente-finalizado {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.pedido-endereco-cliente-finalizado i {
+  color: #6b7280;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.pedido-material-cliente-finalizado {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.pedido-material-cliente-finalizado strong {
+  color: #111827;
+}
+
+.pedido-descricao-cliente-finalizado {
+  font-size: 0.95rem;
+}
+
+.pedido-descricao-cliente-finalizado strong {
+  color: #111827;
+}
+
+.pedido-empresa-cliente-finalizado {
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.pedido-empresa-cliente-finalizado strong {
+  color: #111827;
+}
+
+.pedido-datas-cliente-finalizado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.data-item-cliente-finalizado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.data-item-cliente-finalizado i {
+  color: #6b7280;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.data-item-cliente-coletado {
+  color: #059669;
+}
+
+.data-item-cliente-coletado i {
+  color: #059669;
+}
+
+.data-item-cliente-finalizado-red {
+  color: #ef4444;
+}
+
+.data-item-cliente-finalizado-red i {
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .pedido-content-cliente-finalizado {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pedido-datas-cliente-finalizado {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+  }
+}
