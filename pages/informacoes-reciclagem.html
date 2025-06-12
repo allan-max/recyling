@@ -3,172 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações sobre Reciclagem</title>
+    <title>Guia de Reciclagem - Sistema de Reciclagem</title>
     <link rel="stylesheet" href="../styles/main.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
 </head>
-<body class="page-container">
-    <div class="dashboard-container">
-        <div class="dashboard-header">
-            <h1 class="dashboard-title">
-                <i class="fas fa-info-circle" style="color: #059669; margin-right: 10px;"></i>
-                Guia de Reciclagem
-            </h1>
-            <a href="../index.html" class="btn btn-outline">
-                <i class="fas fa-home"></i> Voltar ao Início
+<body class="page-container-guia">
+    <div class="guia-container">
+        <div class="guia-header">
+            <a href="dashboard-cliente.html" class="back-link-guia">
+                <i class="fas fa-arrow-left"></i> Voltar ao dashboard
             </a>
+            
+            <div class="guia-title-section">
+                <h1 class="guia-title">
+                    <i class="fas fa-recycle guia-icon"></i>
+                    Guia de Reciclagem
+                </h1>
+                <p class="guia-subtitle">Aprenda como reciclar corretamente e contribuir para um planeta mais sustentável</p>
+            </div>
+
+            <div class="guia-tabs">
+                <button class="tab-button active" data-tab="materiais">Materiais</button>
+                <button class="tab-button" data-tab="como-reciclar">Como Reciclar</button>
+                <button class="tab-button" data-tab="impacto">Impacto</button>
+                <button class="tab-button" data-tab="dicas">Dicas</button>
+            </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" style="color: #2563eb;">5</div>
-                <div class="stat-label">Tipos de Materiais</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" style="color: #dc2626;">90%</div>
-                <div class="stat-label">Taxa de Reciclabilidade</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" style="color: #059669;">100+</div>
-                <div class="stat-label">Dicas Sustentáveis</div>
-            </div>
-        </div>
-
-        <div class="content-card" style="margin-bottom: 30px;">
-            <div class="content-header">
-                <h2 class="content-title">Tipos de Materiais Recicláveis</h2>
-            </div>
-            <div class="content-body">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <div class="guia-content">
+            <div id="materiais" class="tab-content active">
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-title">
+                            <i class="fas fa-file-alt material-icon"></i>
+                            <h3>Papel e Papelão</h3>
+                        </div>
+                        <span class="decomposition-badge">Decomposição: 3-6 meses</span>
+                    </div>
+                    <p class="material-description">Economiza água e energia, reduz desmatamento</p>
                     
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #059669; margin-bottom: 10px;">
-                            <i class="fas fa-file-alt"></i> Papel
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Jornais, revistas, papelão, papel de escritório
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Remova grampos e clipes</li>
-                            <li>Não misture com papel molhado</li>
-                            <li>Separe papéis coloridos dos brancos</li>
-                        </ul>
+                    <div class="recycling-info">
+                        <div class="can-recycle">
+                            <h4><i class="fas fa-check-circle"></i> O que PODE ser reciclado:</h4>
+                            <ul>
+                                <li>Jornais e revistas</li>
+                                <li>Caixas de papelão</li>
+                                <li>Papel de escritório</li>
+                                <li>Embalagens de papel</li>
+                                <li>Livros e cadernos</li>
+                            </ul>
+                        </div>
+                        <div class="cannot-recycle">
+                            <h4><i class="fas fa-times-circle"></i> O que NÃO pode ser reciclado:</h4>
+                            <ul>
+                                <li>Papel higiênico usado</li>
+                                <li>Papel carbono</li>
+                                <li>Papel plastificado</li>
+                                <li>Papel metalizado</li>
+                                <li>Guardanapos sujos</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
 
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #2563eb; margin-bottom: 10px;">
-                            <i class="fas fa-bottle-water"></i> Plástico
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Garrafas PET, embalagens, sacolas plásticas
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Lave as embalagens antes do descarte</li>
-                            <li>Verifique o código de reciclagem</li>
-                            <li>Remova tampas e rótulos quando possível</li>
-                        </ul>
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-title">
+                            <i class="fas fa-bottle-water material-icon plastic"></i>
+                            <h3>Plástico</h3>
+                        </div>
+                        <span class="decomposition-badge plastic">Decomposição: 100-1000 anos</span>
                     </div>
-
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #6b7280; margin-bottom: 10px;">
-                            <i class="fas fa-hammer"></i> Metal
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Latas de alumínio, aço, ferro, cobre
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Amasse latas para economizar espaço</li>
-                            <li>Separe metais ferrosos dos não-ferrosos</li>
-                            <li>Remove etiquetas quando possível</li>
-                        </ul>
+                    <p class="material-description">Reduz poluição marinha, economiza petróleo</p>
+                    
+                    <div class="recycling-info">
+                        <div class="can-recycle">
+                            <h4><i class="fas fa-check-circle"></i> O que PODE ser reciclado:</h4>
+                            <ul>
+                                <li>Garrafas PET</li>
+                                <li>Embalagens de produtos</li>
+                                <li>Sacolas plásticas</li>
+                                <li>Potes e recipientes</li>
+                                <li>Tampas plásticas</li>
+                            </ul>
+                        </div>
+                        <div class="cannot-recycle">
+                            <h4><i class="fas fa-times-circle"></i> O que NÃO pode ser reciclado:</h4>
+                            <ul>
+                                <li>Plástico sujo ou contaminado</li>
+                                <li>Isopor</li>
+                                <li>Plástico filme</li>
+                                <li>Embalagens metalizadas</li>
+                                <li>Brinquedos quebrados</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
 
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #10b981; margin-bottom: 10px;">
-                            <i class="fas fa-wine-bottle"></i> Vidro
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Garrafas, potes, frascos de vidro
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Separe por cores (incolor, verde, âmbar)</li>
-                            <li>Remova tampas e rótulos</li>
-                            <li>Cuidado com vidros temperados</li>
-                        </ul>
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-title">
+                            <i class="fas fa-hammer material-icon metal"></i>
+                            <h3>Metal</h3>
+                        </div>
+                        <span class="decomposition-badge metal">Decomposição: 50-500 anos</span>
                     </div>
-
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #7c3aed; margin-bottom: 10px;">
-                            <i class="fas fa-mobile-alt"></i> Eletrônicos
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Celulares, computadores, eletrodomésticos
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Procure pontos de coleta especializados</li>
-                            <li>Apague dados pessoais antes do descarte</li>
-                            <li>Remova baterias quando possível</li>
-                        </ul>
+                    <p class="material-description">Economiza energia, reduz mineração</p>
+                    
+                    <div class="recycling-info">
+                        <div class="can-recycle">
+                            <h4><i class="fas fa-check-circle"></i> O que PODE ser reciclado:</h4>
+                            <ul>
+                                <li>Latas de alumínio</li>
+                                <li>Latas de aço</li>
+                                <li>Tampas metálicas</li>
+                                <li>Panelas velhas</li>
+                                <li>Fios de cobre</li>
+                            </ul>
+                        </div>
+                        <div class="cannot-recycle">
+                            <h4><i class="fas fa-times-circle"></i> O que NÃO pode ser reciclado:</h4>
+                            <ul>
+                                <li>Metal enferrujado</li>
+                                <li>Latas com tinta</li>
+                                <li>Aerossóis</li>
+                                <li>Esponjas de aço</li>
+                                <li>Clipes e grampos</li>
+                            </ul>
+                        </div>
                     </div>
+                </div>
 
-                    <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
-                        <h3 style="color: #dc2626; margin-bottom: 10px;">
-                            <i class="fas fa-leaf"></i> Orgânicos
-                        </h3>
-                        <p style="color: #6b7280; margin-bottom: 15px;">
-                            Restos de comida, folhas, galhos
-                        </p>
-                        <ul style="color: #374151; font-size: 0.9rem; line-height: 1.6;">
-                            <li>Ideal para compostagem</li>
-                            <li>Não misture com outros materiais</li>
-                            <li>Pode virar adubo natural</li>
-                        </ul>
+                <div class="material-card">
+                    <div class="material-header">
+                        <div class="material-title">
+                            <i class="fas fa-wine-bottle material-icon glass"></i>
+                            <h3>Vidro</h3>
+                        </div>
+                        <span class="decomposition-badge glass">Decomposição: 1000+ anos</span>
+                    </div>
+                    <p class="material-description">100% reciclável, economiza energia</p>
+                    
+                    <div class="recycling-info">
+                        <div class="can-recycle">
+                            <h4><i class="fas fa-check-circle"></i> O que PODE ser reciclado:</h4>
+                            <ul>
+                                <li>Garrafas de vidro</li>
+                                <li>Potes e frascos</li>
+                                <li>Copos de vidro</li>
+                                <li>Vidros de conserva</li>
+                                <li>Vidros de perfume</li>
+                            </ul>
+                        </div>
+                        <div class="cannot-recycle">
+                            <h4><i class="fas fa-times-circle"></i> O que NÃO pode ser reciclado:</h4>
+                            <ul>
+                                <li>Vidros temperados</li>
+                                <li>Espelhos</li>
+                                <li>Lâmpadas</li>
+                                <li>Vidros de janela</li>
+                                <li>Cristais</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="content-card">
-            <div class="content-header">
-                <h2 class="content-title">Dicas Importantes</h2>
+            <div id="como-reciclar" class="tab-content">
+                <div class="info-card">
+                    <h3>Como Preparar os Materiais</h3>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <i class="fas fa-hands-wash"></i>
+                            <h4>1. Limpe</h4>
+                            <p>Lave embalagens e remova restos de comida</p>
+                        </div>
+                        <div class="step-item">
+                            <i class="fas fa-sort"></i>
+                            <h4>2. Separe</h4>
+                            <p>Organize por tipo de material</p>
+                        </div>
+                        <div class="step-item">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                            <h4>3. Compacte</h4>
+                            <p>Reduza o volume quando possível</p>
+                        </div>
+                        <div class="step-item">
+                            <i class="fas fa-truck"></i>
+                            <h4>4. Descarte</h4>
+                            <p>Leve aos pontos de coleta adequados</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="content-body">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-hands-wash" style="font-size: 2rem; color: #059669; margin-bottom: 15px;"></i>
-                        <h4 style="color: #1f2937; margin-bottom: 8px;">Lave os Materiais</h4>
-                        <p style="color: #6b7280; font-size: 0.9rem;">
-                            Materiais limpos facilitam o processo de reciclagem e evitam contaminação
-                        </p>
-                    </div>
 
-                    <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-sort-amount-up" style="font-size: 2rem; color: #2563eb; margin-bottom: 15px;"></i>
-                        <h4 style="color: #1f2937; margin-bottom: 8px;">Separe Corretamente</h4>
-                        <p style="color: #6b7280; font-size: 0.9rem;">
-                            A separação adequada aumenta a eficiência da reciclagem
-                        </p>
+            <div id="impacto" class="tab-content">
+                <div class="info-card">
+                    <h3>Impacto Ambiental da Reciclagem</h3>
+                    <div class="impact-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Menos energia para reciclar alumínio</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">17</div>
+                            <div class="stat-label">Árvores poupadas por tonelada de papel</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">80%</div>
+                            <div class="stat-label">Menos água para reciclar papel</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1000</div>
+                            <div class="stat-label">Anos para plástico se degradar</div>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-calendar-check" style="font-size: 2rem; color: #dc2626; margin-bottom: 15px;"></i>
-                        <h4 style="color: #1f2937; margin-bottom: 8px;">Descarte Regular</h4>
-                        <p style="color: #6b7280; font-size: 0.9rem;">
-                            Mantenha uma rotina de descarte para evitar acúmulo
-                        </p>
-                    </div>
-
-                    <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-users" style="font-size: 2rem; color: #7c3aed; margin-bottom: 15px;"></i>
-                        <h4 style="color: #1f2937; margin-bottom: 8px;">Conscientize Outros</h4>
-                        <p style="color: #6b7280; font-size: 0.9rem;">
-                            Compartilhe conhecimento sobre reciclagem com familiares e amigos
-                        </p>
+            <div id="dicas" class="tab-content">
+                <div class="info-card">
+                    <h3>Dicas Importantes</h3>
+                    <div class="tips-grid">
+                        <div class="tip-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <h4>Reduza o Consumo</h4>
+                            <p>A melhor forma de ajudar o meio ambiente é consumir menos</p>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-retweet"></i>
+                            <h4>Reutilize</h4>
+                            <p>Dê nova vida aos objetos antes de descartá-los</p>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-recycle"></i>
+                            <h4>Recicle Corretamente</h4>
+                            <p>Separe adequadamente e leve aos pontos corretos</p>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-users"></i>
+                            <h4>Eduque Outros</h4>
+                            <p>Compartilhe conhecimento sobre reciclagem</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Verificar se está logado
+        if (!isLoggedIn || !isLoggedIn()) {
+            // Se não estiver logado, ainda permite acesso ao guia
+        }
+
+        // Funcionalidade das abas
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active de todas as abas e conteúdos
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Adiciona active na aba clicada e seu conteúdo
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,219 @@
+/* Estilos específicos para a página de recuperar senha */
+.recuperar-senha-container {
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.recuperar-senha-overlay {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voltar-inicio-link {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  color: #059669;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.voltar-inicio-link:hover {
+  text-decoration: underline;
+}
+
+.recuperar-senha-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin: 0 20px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: #6b7280;
+}
+
+.modal-header-recuperar {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.modal-header-recuperar h1 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.modal-header-recuperar p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.recuperar-senha-form {
+  margin-bottom: 0;
+}
+
+.form-group-recuperar {
+  margin-bottom: 20px;
+}
+
+.form-group-recuperar label {
+  display: block;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-group-recuperar input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fafb;
+}
+
+.form-group-recuperar input:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  background: white;
+}
+
+.form-group-recuperar input::placeholder {
+  color: #9ca3af;
+}
+
+.btn-alterar-senha {
+  width: 100%;
+  background: #1f2937;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.btn-alterar-senha:hover {
+  background: #111827;
+}
+
+.esqueceu-senha-link {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.esqueceu-senha-link a {
+  color: #059669;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.esqueceu-senha-link a:hover {
+  text-decoration: underline;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+@media (max-width: 768px) {
+  .voltar-inicio-link {
+    top: 20px;
+    left: 20px;
+    font-size: 0.85rem;
+  }
+
+  .recuperar-senha-modal {
+    padding: 30px;
+    margin: 0 15px;
+  }
+
+  .modal-header-recuperar h1 {
+    font-size: 1.3rem;
+  }
+
+  .form-group-recuperar input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .btn-alterar-senha {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recuperar-senha-modal {
+    padding: 25px;
+  }
+
+  .modal-header-recuperar h1 {
+    font-size: 1.2rem;
+  }
+
+  .esqueceu-senha-link {
+    bottom: 20px;
+  }
+}

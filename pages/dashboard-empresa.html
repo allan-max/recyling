@@ -25,6 +25,42 @@
         </div>
     </div>
 
+    <!-- Modal Aceitar Pedido -->
+    <div id="aceitarPedidoModal" class="modal-aceitar-pedido">
+        <div class="modal-aceitar-content">
+            <button class="modal-close-aceitar" onclick="fecharModalAceitar()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header-aceitar">
+                <h2>Aceitar Pedido</h2>
+                <p>Defina a data e hora prevista para a coleta</p>
+            </div>
+
+            <form id="aceitarPedidoForm">
+                <div class="form-group-aceitar">
+                    <label for="dataPrevista">Data Prevista</label>
+                    <div class="input-with-icon">
+                        <input type="date" id="dataPrevista" name="dataPrevista" required>
+                        <i class="fas fa-calendar-alt input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group-aceitar">
+                    <label for="horaPrevista">Hora Prevista</label>
+                    <div class="input-with-icon">
+                        <input type="time" id="horaPrevista" name="horaPrevista" required>
+                        <i class="fas fa-clock input-icon"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-confirmar-aceite">
+                    Confirmar Aceite
+                </button>
+            </form>
+        </div>
+    </div>
+
     <script src="../scripts/auth.js"></script>
     <script src="../scripts/pedidos.js"></script>
     <script>
@@ -32,6 +68,8 @@
         if (!isLoggedIn() || getCurrentUserType() !== 'empresa') {
             window.location.href = 'login-empresa.html';
         }
+
+        let pedidoParaAceitar = null;
 
         // Carregar pedidos ao inicializar
         document.addEventListener('DOMContentLoaded', carregarPedidosEmpresa);
@@ -88,7 +126,7 @@
                     </div>
                     <div class="pedido-actions-empresa">
                         ${pedido.status === 'Aguardando' || pedido.status === 'Pendente' ? `
-                            <button class="btn-aceitar-pedido" onclick="aceitarPedido(${pedido.id})">
+                            <button class="btn-aceitar-pedido" onclick="abrirModalAceitar(${pedido.id})">
                                 Aceitar Pedido
                             </button>
                         ` : ''}
@@ -113,15 +151,44 @@
             return classes[status] || 'status-pendente-empresa';
         }
 
-        function aceitarPedido(id) {
+        function abrirModalAceitar(pedidoId) {
+            pedidoParaAceitar = pedidoId;
+            
+            // Definir data mínima como hoje
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataPrevista').min = hoje;
+            
+            // Definir data padrão como amanhã
+            const amanha = new Date();
+            amanha.setDate(amanha.getDate() + 1);
+            document.getElementById('dataPrevista').value = amanha.toISOString().split('T')[0];
+            
+            // Definir hora padrão
+            document.getElementById('horaPrevista').value = '14:00';
+            
+            document.getElementById('aceitarPedidoModal').style.display = 'flex';
+        }
+
+        function fecharModalAceitar() {
+            document.getElementById('aceitarPedidoModal').style.display = 'none';
+            pedidoParaAceitar = null;
+            document.getElementById('aceitarPedidoForm').reset();
+        }
+
+        function aceitarPedidoComData(pedidoId, dataPrevista, horaPrevista) {
             const pedidos = getPedidos();
-            const pedido = pedidos.find(p => p.id === id);
+            const pedido = pedidos.find(p => p.id === pedidoId);
             if (pedido) {
                 pedido.status = 'Aceito';
                 pedido.empresa = getCurrentUser().name;
-                pedido.previsao = '19/01/2024 às 14:00';
+                
+                // Formatar data e hora
+                const dataFormatada = new Date(dataPrevista).toLocaleDateString('pt-BR');
+                pedido.previsao = `${dataFormatada} às ${horaPrevista}`;
+                
                 localStorage.setItem('pedidos', JSON.stringify(pedidos));
                 carregarPedidosEmpresa();
+                fecharModalAceitar();
             }
         }
 
@@ -173,6 +240,30 @@
                 window.location.href = '../index.html';
             }
         }
+
+        // Event listeners
+        document.getElementById('aceitarPedidoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!pedidoParaAceitar) return;
+            
+            const dataPrevista = document.getElementById('dataPrevista').value;
+            const horaPrevista = document.getElementById('horaPrevista').value;
+            
+            if (!dataPrevista || !horaPrevista) {
+                alert('Por favor, preencha a data e hora prevista.');
+                return;
+            }
+            
+            aceitarPedidoComData(pedidoParaAceitar, dataPrevista, horaPrevista);
+        });
+
+        // Fechar modal ao clicar fora
+        document.getElementById('aceitarPedidoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                fecharModalAceitar();
+            }
+        });
     </script>
 </body>
 </html>

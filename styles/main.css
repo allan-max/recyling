@@ -175,8 +175,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Responsive */
-
 /* Páginas internas */
 .page-container {
   min-height: 100vh;
@@ -962,6 +960,216 @@ body {
   background-color: #111827;
 }
 
+/* Dashboard do Cliente - Estilos específicos */
+.dashboard-header-cliente {
+  background: #f0fdf4;
+  padding: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboard-header-cliente .dashboard-title {
+  color: #1f2937;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.dashboard-header-cliente .dashboard-subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.header-actions-cliente {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-outline-cliente {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-outline-cliente:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.btn-primary-cliente {
+  background-color: #1f2937;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-primary-cliente:hover {
+  background-color: #111827;
+}
+
+.search-section {
+  margin-bottom: 30px;
+}
+
+.search-container-cliente {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 10px;
+}
+
+.search-input-cliente {
+  width: 100%;
+  padding: 12px 16px 12px 45px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.search-input-cliente:hover {
+  border-color: #9ca3af;
+}
+
+.search-input-cliente:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.search-help-text {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Cards dos pedidos do cliente */
+.pedido-card-cliente {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.pedido-header-cliente {
+  padding: 15px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+}
+
+.pedido-title-cliente {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pedido-title-cliente i {
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.pedido-status-cliente {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-aguardando-cliente {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-aceito-cliente {
+  background-color: #1f2937;
+  color: white;
+}
+
+.status-coletado-cliente {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-finalizado-cliente {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.pedido-content-cliente {
+  padding: 20px;
+}
+
+.pedido-subtitle-cliente {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.pedido-location-cliente {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.pedido-location-cliente i {
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.pedido-details-cliente {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item-cliente {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -982,6 +1190,17 @@ body {
     margin: 20% auto;
     width: 90%;
   }
+
+  .dashboard-header-cliente {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header-actions-cliente {
+    width: 100%;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1000,5 +1219,1015 @@ body {
 
   .card-icon i {
     font-size: 28px;
+  }
+}
+
+/* Guia de Reciclagem - Estilos específicos */
+.page-container-guia {
+  min-height: 100vh;
+  background: #f0fdf4;
+  padding: 0;
+}
+
+.guia-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.guia-header {
+  margin-bottom: 30px;
+}
+
+.back-link-guia {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.back-link-guia:hover {
+  text-decoration: underline;
+}
+
+.guia-title-section {
+  margin-bottom: 30px;
+}
+
+.guia-title {
+  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.guia-icon {
+  color: #059669;
+  font-size: 1.8rem;
+}
+
+.guia-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.guia-tabs {
+  display: flex;
+  gap: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.tab-button.active {
+  background: #1f2937;
+  color: white;
+}
+
+.tab-button:hover:not(.active) {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.guia-content {
+  margin-top: 20px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.material-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.material-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.material-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.material-title h3 {
+  color: #1f2937;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.material-icon {
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+.material-icon.plastic {
+  color: #dc2626;
+}
+
+.material-icon.metal {
+  color: #6b7280;
+}
+
+.material-icon.glass {
+  color: #059669;
+}
+
+.decomposition-badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.decomposition-badge.plastic {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.decomposition-badge.metal {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.decomposition-badge.glass {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.material-description {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0 0 20px 0;
+}
+
+.recycling-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.can-recycle h4 {
+  color: #059669;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.can-recycle h4 i {
+  color: #059669;
+}
+
+.cannot-recycle h4 {
+  color: #dc2626;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cannot-recycle h4 i {
+  color: #dc2626;
+}
+
+.can-recycle ul,
+.cannot-recycle ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.can-recycle li,
+.cannot-recycle li {
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: #374151;
+  position: relative;
+  padding-left: 20px;
+}
+
+.can-recycle li::before {
+  content: "•";
+  color: #059669;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.cannot-recycle li::before {
+  content: "•";
+  color: #dc2626;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.info-card h3 {
+  color: #1f2937;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 25px 0;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.step-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.step-item i {
+  font-size: 2.5rem;
+  color: #059669;
+  margin-bottom: 15px;
+}
+
+.step-item h4 {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.step-item p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 25px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.tip-item {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.tip-item i {
+  font-size: 2rem;
+  color: #059669;
+  margin-bottom: 15px;
+}
+
+.tip-item h4 {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.tip-item p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .guia-tabs {
+    flex-direction: column;
+  }
+
+  .recycling-info {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .steps-grid,
+  .impact-stats,
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guia-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Login Pages - Novo Design */
+.login-page-container {
+  min-height: 100vh;
+  background: #f0fdf4;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-page-wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  position: relative;
+}
+
+.back-link-login {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back-link-login:hover {
+  text-decoration: underline;
+}
+
+.login-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  text-align: center;
+}
+
+.login-icon-container {
+  margin-bottom: 24px;
+}
+
+.login-icon-user {
+  font-size: 3rem;
+  color: #2563eb;
+  background: #dbeafe;
+  padding: 20px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-icon-company {
+  font-size: 3rem;
+  color: #059669;
+  background: #d1fae5;
+  padding: 20px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-header-new {
+  margin-bottom: 32px;
+}
+
+.login-header-new h1 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.login-header-new p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.login-form-new {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.form-group-new {
+  margin-bottom: 20px;
+}
+
+.form-group-new label {
+  display: block;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-group-new input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fafb;
+}
+
+.form-group-new input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: white;
+}
+
+.form-group-new input::placeholder {
+  color: #9ca3af;
+}
+
+.btn-entrar {
+  width: 100%;
+  background: #1f2937;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.btn-entrar:hover {
+  background: #111827;
+}
+
+.login-links {
+  text-align: center;
+}
+
+.login-links p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.login-links a {
+  color: #059669;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+.forgot-password {
+  color: #2563eb !important;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+.login-icon-key {
+  font-size: 3rem;
+  color: #f59e0b;
+  background: #fef3c7;
+  padding: 20px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.alert-info {
+  background-color: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #93c5fd;
+}
+
+@media (max-width: 768px) {
+  .login-page-wrapper {
+    padding: 10px;
+  }
+
+  .login-card {
+    padding: 30px;
+    margin-top: 40px;
+  }
+
+  .back-link-login {
+    position: static;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-icon-user,
+  .login-icon-company {
+    font-size: 2.5rem;
+    padding: 16px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-header-new h1 {
+    font-size: 1.3rem;
+  }
+
+  .form-group-new label {
+    font-size: 0.85rem;
+  }
+
+  .form-group-new input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .btn-entrar {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .login-links p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Estilos específicos para a página de recuperar senha */
+.recuperar-senha-container {
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.recuperar-senha-overlay {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voltar-inicio-link {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  color: #059669;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.voltar-inicio-link:hover {
+  text-decoration: underline;
+}
+
+.recuperar-senha-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin: 0 20px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  color: #6b7280;
+}
+
+.modal-header-recuperar {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.modal-header-recuperar h1 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.modal-header-recuperar p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.recuperar-senha-form {
+  margin-bottom: 0;
+}
+
+.form-group-recuperar {
+  margin-bottom: 20px;
+}
+
+.form-group-recuperar label {
+  display: block;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-group-recuperar input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fafb;
+}
+
+.form-group-recuperar input:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  background: white;
+}
+
+.form-group-recuperar input::placeholder {
+  color: #9ca3af;
+}
+
+.btn-alterar-senha {
+  width: 100%;
+  background: #1f2937;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.btn-alterar-senha:hover {
+  background: #111827;
+}
+
+.esqueceu-senha-link {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.esqueceu-senha-link a {
+  color: #059669;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.esqueceu-senha-link a:hover {
+  text-decoration: underline;
+}
+
+/* Modal Aceitar Pedido */
+.modal-aceitar-pedido {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-aceitar-content {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin: 0 20px;
+}
+
+.modal-close-aceitar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.modal-close-aceitar:hover {
+  color: #6b7280;
+}
+
+.modal-header-aceitar {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.modal-header-aceitar h2 {
+  color: #1f2937;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.modal-header-aceitar p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.form-group-aceitar {
+  margin-bottom: 20px;
+}
+
+.form-group-aceitar label {
+  display: block;
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 12px 16px 12px 45px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #f9fafb;
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+  background: white;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2563eb;
+  font-size: 0.9rem;
+}
+
+.btn-confirmar-aceite {
+  width: 100%;
+  background: #1f2937;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-confirmar-aceite:hover {
+  background: #111827;
+}
+
+/* Estilos para inputs de data e hora */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+input[type="date"],
+input[type="time"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button,
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .voltar-inicio-link {
+    top: 20px;
+    left: 20px;
+    font-size: 0.85rem;
+  }
+
+  .recuperar-senha-modal {
+    padding: 30px;
+    margin: 0 15px;
+  }
+
+  .modal-header-recuperar h1 {
+    font-size: 1.3rem;
+  }
+
+  .form-group-recuperar input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .btn-alterar-senha {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .modal-aceitar-content {
+    padding: 25px;
+    margin: 0 15px;
+  }
+
+  .modal-header-aceitar h2 {
+    font-size: 1.2rem;
+  }
+
+  .input-with-icon input {
+    padding: 10px 14px 10px 40px;
+    font-size: 0.9rem;
+  }
+
+  .btn-confirmar-aceite {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recuperar-senha-modal {
+    padding: 25px;
+  }
+
+  .modal-header-recuperar h1 {
+    font-size: 1.2rem;
+  }
+
+  .esqueceu-senha-link {
+    bottom: 20px;
+  }
+
+  .modal-aceitar-content {
+    padding: 20px;
+  }
+
+  .modal-header-aceitar h2 {
+    font-size: 1.1rem;
   }
 }

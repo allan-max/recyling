@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Sistema de Reciclagem</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../icons8-reciclagem-48.png" type="image/x-icon">
+</head>
+<body class="recuperar-senha-container">
+    <div class="recuperar-senha-overlay">
+        <a href="javascript:history.back()" class="voltar-inicio-link">
+            <i class="fas fa-arrow-left"></i> Voltar ao Início
+        </a>
+
+        <div class="recuperar-senha-modal">
+            <button class="modal-close-btn" onclick="javascript:history.back()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header-recuperar">
+                <h1>Alterar Senha</h1>
+                <p>Preencha os campos abaixo para redefinir sua senha.</p>
+            </div>
+
+            <div id="alert-container"></div>
+
+            <form id="recuperarSenhaForm" class="recuperar-senha-form">
+                <div class="form-group-recuperar">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="empresa@exemplo.com" required>
+                </div>
+
+                <div class="form-group-recuperar">
+                    <label for="novaSenha">Nova Senha</label>
+                    <input type="password" id="novaSenha" placeholder="Digite sua nova senha" required>
+                </div>
+
+                <div class="form-group-recuperar">
+                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                    <input type="password" id="confirmarSenha" placeholder="Confirme sua nova senha" required>
+                </div>
+
+                <button type="submit" class="btn-alterar-senha">
+                    Alterar Senha
+                </button>
+            </form>
+        </div>
+
+        <div class="esqueceu-senha-link">
+            <a href="javascript:history.back()">Esqueceu sua senha?</a>
+        </div>
+    </div>
+
+    <script src="../scripts/auth.js"></script>
+    <script>
+        document.getElementById('recuperarSenhaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const novaSenha = document.getElementById('novaSenha').value;
+            const confirmarSenha = document.getElementById('confirmarSenha').value;
+            
+            // Validar se as senhas coincidem
+            if (novaSenha !== confirmarSenha) {
+                showAlert('As senhas não coincidem!', 'error');
+                return;
+            }
+            
+            // Validar tamanho mínimo da senha
+            if (novaSenha.length < 6) {
+                showAlert('A senha deve ter pelo menos 6 caracteres!', 'error');
+                return;
+            }
+            
+            // Verificar se o email existe no sistema
+            const allUsers = getAllUsers();
+            const userExists = allUsers.some(user => user.email.toLowerCase() === email.toLowerCase());
+            
+            if (userExists) {
+                // Simular alteração de senha (em um sistema real, isso seria feito no backend)
+                showAlert('Senha alterada com sucesso!', 'success');
+                
+                setTimeout(() => {
+                    // Redirecionar para a página de login apropriada
+                    const user = allUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
+                    if (user && (user.type === 'empresa' || user.type === 'both')) {
+                        window.location.href = 'login-empresa.html';
+                    } else {
+                        window.location.href = 'login-cliente.html';
+                    }
+                }, 2000);
+                
+                // Limpar formulário
+                document.getElementById('recuperarSenhaForm').reset();
+            } else {
+                showAlert('Email não encontrado em nosso sistema.', 'error');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
+            
+            alertContainer.innerHTML = `
+                <div class="alert ${alertClass}">
+                    ${message}
+                </div>
+            `;
+            
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
