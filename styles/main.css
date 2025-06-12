@@ -1075,7 +1075,143 @@ body {
   margin: 0;
 }
 
-/* Cards dos pedidos do cliente */
+/* Cards dos pedidos do cliente - NOVO DESIGN */
+.pedido-card-cliente-novo {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pedido-header-cliente-novo {
+  padding: 20px 24px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pedido-title-cliente-novo {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pedido-title-cliente-novo i {
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.pedido-status-cliente-novo {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-aguardando-cliente-novo {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-aceito-cliente-novo {
+  background-color: #1f2937;
+  color: white;
+}
+
+.status-coletado-cliente-novo {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-finalizado-cliente-novo {
+  background-color: #ef4444;
+  color: white;
+}
+
+.pedido-content-cliente-novo {
+  padding: 0 24px 24px;
+}
+
+.pedido-subtitle-cliente-novo {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.pedido-location-cliente-novo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.pedido-location-cliente-novo i {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.pedido-details-cliente-novo {
+  margin-bottom: 20px;
+}
+
+.detail-item-cliente-novo {
+  font-size: 1rem;
+  color: #1f2937;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.detail-item-cliente-novo strong {
+  font-weight: 700;
+}
+
+.pedido-dates-cliente-novo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.date-item-cliente-novo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.date-item-cliente-novo i {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  width: 16px;
+}
+
+.date-item-cliente-novo.coletado {
+  color: #059669;
+}
+
+.date-item-cliente-novo.coletado i {
+  color: #059669;
+}
+
+.date-item-cliente-novo.finalizado {
+  color: #dc2626;
+}
+
+.date-item-cliente-novo.finalizado i {
+  color: #dc2626;
+}
+
+/* Cards dos pedidos do cliente - DESIGN ANTIGO (mantido para compatibilidade) */
 .pedido-card-cliente {
   background: white;
   border-radius: 8px;
@@ -1170,58 +1306,6 @@ body {
   color: #374151;
 }
 
-@media (max-width: 768px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .header-actions {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .modal-content {
-    margin: 20% auto;
-    width: 90%;
-  }
-
-  .dashboard-header-cliente {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .header-actions-cliente {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-title {
-    font-size: 1.75rem;
-  }
-
-  .card {
-    padding: 25px 15px;
-  }
-
-  .card-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .card-icon i {
-    font-size: 28px;
-  }
-}
-
 /* Guia de Reciclagem - Estilos específicos */
 .page-container-guia {
   min-height: 100vh;
@@ -1299,6 +1383,8 @@ body {
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .tab-button.active {
@@ -1311,16 +1397,33 @@ body {
   color: #374151;
 }
 
+.tab-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.2);
+}
+
 .guia-content {
   margin-top: 20px;
 }
 
 .tab-content {
   display: none;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .tab-content.active {
   display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .material-card {
@@ -1568,7 +1671,270 @@ body {
   margin: 0;
 }
 
+/* Adicionando os novos estilos para o guia de reciclagem atualizado */
+
+/* Estilos para os cards do guia */
+.guia-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.guia-card-header {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.guia-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #f0fdf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guia-card-icon i {
+  font-size: 24px;
+  color: #059669;
+}
+
+.guia-card-title h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.guia-card-title p {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.guia-card-content {
+  padding: 0 24px 24px;
+}
+
+/* Estilos para os passos de como reciclar */
+.passo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.passo-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.passo-icon.green {
+  background-color: #d1fae5;
+}
+
+.passo-icon.green i {
+  color: #059669;
+}
+
+.passo-icon.blue {
+  background-color: #dbeafe;
+}
+
+.passo-icon.blue i {
+  color: #2563eb;
+}
+
+.passo-info h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.passo-info p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* Estilos para os itens de impacto */
+.impacto-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f0fdf4;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.impacto-item.wide {
+  background-color: #f0f9ff;
+}
+
+.impacto-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.impacto-icon.green {
+  background-color: #d1fae5;
+}
+
+.impacto-icon.green i {
+  color: #059669;
+}
+
+.impacto-icon.blue {
+  background-color: #dbeafe;
+}
+
+.impacto-icon.blue i {
+  color: #2563eb;
+}
+
+.impacto-icon.yellow {
+  background-color: #fef3c7;
+}
+
+.impacto-icon.yellow i {
+  color: #d97706;
+}
+
+.impacto-icon.purple {
+  background-color: #f3e8ff;
+}
+
+.impacto-icon.purple i {
+  color: #7c3aed;
+}
+
+.impacto-info h3 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.impacto-info p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* Estilos para as dicas sustentáveis */
+.dicas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dicas-column {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.dicas-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 16px;
+}
+
+.dicas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dica-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.dica-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dica-bullet.green {
+  background-color: #059669;
+}
+
+.dica-bullet.blue {
+  background-color: #2563eb;
+}
+
 @media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .modal-content {
+    margin: 20% auto;
+    width: 90%;
+  }
+
+  .dashboard-header-cliente {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header-actions-cliente {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .pedido-dates-cliente-novo {
+    gap: 6px;
+  }
+
+  .pedido-title-cliente-novo {
+    font-size: 1.3rem;
+  }
+
+  .pedido-title-cliente-novo i {
+    font-size: 1.3rem;
+  }
+
   .guia-tabs {
     flex-direction: column;
   }
@@ -1586,6 +1952,75 @@ body {
 
   .guia-title {
     font-size: 1.6rem;
+  }
+
+  .guia-card-header {
+    padding: 20px;
+  }
+
+  .guia-card-content {
+    padding: 0 20px 20px;
+  }
+
+  .passo-item,
+  .impacto-item {
+    padding: 12px;
+  }
+
+  .dicas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.75rem;
+  }
+
+  .card {
+    padding: 25px 15px;
+  }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card-icon i {
+    font-size: 28px;
+  }
+
+  .pedido-header-cliente-novo {
+    padding: 16px 20px 12px;
+  }
+
+  .pedido-content-cliente-novo {
+    padding: 0 20px 20px;
+  }
+
+  .pedido-title-cliente-novo {
+    font-size: 1.2rem;
+  }
+
+  .pedido-title-cliente-novo i {
+    font-size: 1.2rem;
+  }
+
+  .guia-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .passo-item,
+  .impacto-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .passo-icon,
+  .impacto-icon {
+    margin-bottom: 8px;
   }
 }
 

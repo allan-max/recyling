@@ -10,6 +10,10 @@ function adicionarPedido(pedido) {
   localStorage.setItem("pedidos", JSON.stringify(pedidos))
 }
 
+function addPedido(pedido) {
+  return adicionarPedido(pedido)
+}
+
 function carregarPedidos() {
   const pedidos = getPedidos()
   const container = document.getElementById("pedidos-lista")
@@ -121,6 +125,45 @@ function removerPedido(id) {
   }
 }
 
+function marcarComoColetado(pedidoId) {
+  const pedidos = getPedidos()
+  const pedido = pedidos.find((p) => p.id === pedidoId)
+  if (pedido) {
+    pedido.status = "Coletado"
+    pedido.dataColeta = new Date().toLocaleDateString("pt-BR")
+    localStorage.setItem("pedidos", JSON.stringify(pedidos))
+
+    // Atualizar as páginas
+    if (window.carregarPedidosEmpresa && typeof window.carregarPedidosEmpresa === "function") {
+      window.carregarPedidosEmpresa()
+    }
+    if (window.carregarMeusPedidos && typeof window.carregarMeusPedidos === "function") {
+      window.carregarMeusPedidos()
+    }
+  }
+}
+
+function finalizarPedido(pedidoId) {
+  const pedidos = getPedidos()
+  const pedido = pedidos.find((p) => p.id === pedidoId)
+  if (pedido) {
+    pedido.status = "Finalizado"
+    pedido.dataFinalizacao = new Date().toLocaleDateString("pt-BR")
+    if (!pedido.dataColeta) {
+      pedido.dataColeta = pedido.dataFinalizacao
+    }
+    localStorage.setItem("pedidos", JSON.stringify(pedidos))
+
+    // Atualizar as páginas
+    if (window.carregarPedidosEmpresa && typeof window.carregarPedidosEmpresa === "function") {
+      window.carregarPedidosEmpresa()
+    }
+    if (window.carregarMeusPedidos && typeof window.carregarMeusPedidos === "function") {
+      window.carregarMeusPedidos()
+    }
+  }
+}
+
 // Inicializar alguns pedidos de exemplo se não existirem
 function inicializarDadosExemplo() {
   const pedidos = getPedidos()
@@ -130,9 +173,9 @@ function inicializarDadosExemplo() {
         id: 1,
         cliente: "Maria Silva",
         clienteEmail: "maria@exemplo.com",
-        tipoMaterial: "Papel",
+        tipoMaterial: "Papel e Papelão",
         descricao: "Aproximadamente 50kg de papelão de mudança",
-        endereco: "Rua das Flores, 123 - Centro, São Paulo",
+        endereco: "Rua das Flores, 123 - Centro, São Paulo - SP",
         data: "05/06/2025",
         status: "Aguardando",
       },
@@ -142,7 +185,7 @@ function inicializarDadosExemplo() {
         clienteEmail: "joao@exemplo.com",
         tipoMaterial: "Eletrônicos",
         descricao: "Computador antigo, monitor e impressora",
-        endereco: "Av. Paulista, 456 - Bela Vista, São Paulo",
+        endereco: "Av. Paulista, 456 - Bela Vista, São Paulo - SP",
         data: "04/06/2025",
         status: "Aceito",
         empresa: "EcoRecicla LTDA",
@@ -154,11 +197,13 @@ function inicializarDadosExemplo() {
         clienteEmail: "ana@exemplo.com",
         tipoMaterial: "Plástico",
         descricao: "Garrafas PET e embalagens plásticas",
-        endereco: "Rua Verde, 789 - Vila Madalena, São Paulo",
+        endereco: "Rua Verde, 789 - Vila Madalena, São Paulo - SP",
         data: "03/06/2025",
-        status: "Coletado",
+        status: "Finalizado",
         empresa: "Verde Reciclagem",
+        previsao: "11/01/2024 às 10:00",
         dataColeta: "11/01/2024",
+        dataFinalizacao: "11/01/2024",
       },
     ]
 

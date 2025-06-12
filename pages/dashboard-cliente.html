@@ -25,6 +25,9 @@
                 <button class="btn btn-primary-cliente" id="novoPedidoBtn">
                     <i class="fas fa-plus"></i> Novo Pedido
                 </button>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
             </div>
         </div>
 
@@ -112,30 +115,57 @@
             }
 
             container.innerHTML = meusPedidos.map((pedido, index) => `
-                <div class="pedido-card-cliente">
-                    <div class="pedido-header-cliente">
-                        <div class="pedido-title-cliente">
+                <div class="pedido-card-cliente-novo">
+                    <div class="pedido-header-cliente-novo">
+                        <div class="pedido-title-cliente-novo">
                             <i class="fas fa-box"></i> Pedido #${index + 1}
                         </div>
-                        <div class="pedido-status-cliente ${getStatusClass(pedido.status)}">
-                            ${pedido.status}
+                        <div class="pedido-status-cliente-novo ${getStatusClass(pedido.status)}">
+                            ${getStatusText(pedido.status)}
                         </div>
                     </div>
-                    <div class="pedido-content-cliente">
-                        <div class="pedido-subtitle-cliente">
+                    <div class="pedido-content-cliente-novo">
+                        <div class="pedido-subtitle-cliente-novo">
                             ${getStatusMessage(pedido)}
                         </div>
-                        <div class="pedido-location-cliente">
+                        <div class="pedido-location-cliente-novo">
                             <i class="fas fa-map-marker-alt"></i> ${pedido.endereco}
                         </div>
-                        <div class="pedido-details-cliente">
-                            <div class="detail-item-cliente">
+                        <div class="pedido-details-cliente-novo">
+                            <div class="detail-item-cliente-novo">
                                 <strong>Material:</strong> ${pedido.tipoMaterial}
                             </div>
-                            <div class="detail-item-cliente">
+                            <div class="detail-item-cliente-novo">
                                 <strong>Descrição:</strong> ${pedido.descricao}
                             </div>
+                            ${pedido.empresa ? `
+                                <div class="detail-item-cliente-novo">
+                                    <strong>Empresa:</strong> ${pedido.empresa}
+                                </div>
+                            ` : ''}
                         </div>
+                        ${(pedido.status === 'Aceito' || pedido.status === 'Coletado' || pedido.status === 'Finalizado') ? `
+                            <div class="pedido-dates-cliente-novo">
+                                <div class="date-item-cliente-novo">
+                                    <i class="far fa-calendar"></i> Abertura: ${pedido.data || '14/01/2024'}
+                                </div>
+                                ${pedido.previsao ? `
+                                    <div class="date-item-cliente-novo">
+                                        <i class="far fa-clock"></i> Previsão: ${pedido.previsao}
+                                    </div>
+                                ` : ''}
+                                ${pedido.dataColeta ? `
+                                    <div class="date-item-cliente-novo coletado">
+                                        <i class="far fa-calendar"></i> Coletado: ${pedido.dataColeta}
+                                    </div>
+                                ` : ''}
+                                ${pedido.dataFinalizacao ? `
+                                    <div class="date-item-cliente-novo finalizado">
+                                        <i class="far fa-calendar"></i> Finalizado: ${pedido.dataFinalizacao}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
             `).join('');
@@ -143,13 +173,24 @@
 
         function getStatusClass(status) {
             const classes = {
-                'Aguardando': 'status-aguardando-cliente',
-                'Pendente': 'status-aguardando-cliente',
-                'Aceito': 'status-aceito-cliente',
-                'Coletado': 'status-coletado-cliente',
-                'Finalizado': 'status-finalizado-cliente'
+                'Aguardando': 'status-aguardando-cliente-novo',
+                'Pendente': 'status-aguardando-cliente-novo',
+                'Aceito': 'status-aceito-cliente-novo',
+                'Coletado': 'status-coletado-cliente-novo',
+                'Finalizado': 'status-finalizado-cliente-novo'
             };
-            return classes[status] || 'status-aguardando-cliente';
+            return classes[status] || 'status-aguardando-cliente-novo';
+        }
+
+        function getStatusText(status) {
+            const statusTexts = {
+                'Aguardando': 'Aguardando',
+                'Pendente': 'Aguardando',
+                'Aceito': 'Aceito',
+                'Coletado': 'Coletado',
+                'Finalizado': 'Finalizado'
+            };
+            return statusTexts[status] || 'Aguardando';
         }
 
         function getStatusMessage(pedido) {
@@ -160,9 +201,9 @@
                 case 'Aceito':
                     return `Aceito por ${pedido.empresa || 'EcoRecicla LTDA'}. Coleta prevista para ${pedido.previsao || '19/01/2024 às 14:00'}`;
                 case 'Coletado':
-                    return `Coletado por ${pedido.empresa || 'EcoRecicla LTDA'} em ${pedido.dataColeta || 'data não informada'}`;
+                    return `Material coletado em ${pedido.dataColeta || 'data não informada'}`;
                 case 'Finalizado':
-                    return 'Pedido finalizado com sucesso';
+                    return `Serviço finalizado em ${pedido.dataFinalizacao || pedido.dataColeta || 'data não informada'}`;
                 default:
                     return 'Aguardando empresa aceitar o pedido';
             }
